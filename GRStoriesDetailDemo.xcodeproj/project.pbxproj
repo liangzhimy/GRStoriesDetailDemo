@@ -16,6 +16,9 @@
 		500407451E1109FD008CECBB /* GRCubeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 500407441E1109FD008CECBB /* GRCubeViewController.m */; };
 		500407481E110B6B008CECBB /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 500407471E110B6B008CECBB /* QuartzCore.framework */; };
 		5004074B1E110E58008CECBB /* GRMyStoryDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5004074A1E110E58008CECBB /* GRMyStoryDetailViewController.m */; };
+		5004074E1E1240B2008CECBB /* GRStoryPlayerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5004074D1E1240B2008CECBB /* GRStoryPlayerView.m */; };
+		500407501E12414A008CECBB /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5004074F1E12414A008CECBB /* AVFoundation.framework */; };
+		500407541E124A9F008CECBB /* videos.txt in Resources */ = {isa = PBXBuildFile; fileRef = 500407531E124A9F008CECBB /* videos.txt */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -34,6 +37,10 @@
 		500407471E110B6B008CECBB /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		500407491E110E58008CECBB /* GRMyStoryDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GRMyStoryDetailViewController.h; sourceTree = "<group>"; };
 		5004074A1E110E58008CECBB /* GRMyStoryDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GRMyStoryDetailViewController.m; sourceTree = "<group>"; };
+		5004074C1E1240B2008CECBB /* GRStoryPlayerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GRStoryPlayerView.h; sourceTree = "<group>"; };
+		5004074D1E1240B2008CECBB /* GRStoryPlayerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GRStoryPlayerView.m; sourceTree = "<group>"; };
+		5004074F1E12414A008CECBB /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		500407531E124A9F008CECBB /* videos.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = videos.txt; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -41,6 +48,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				500407501E12414A008CECBB /* AVFoundation.framework in Frameworks */,
 				500407481E110B6B008CECBB /* QuartzCore.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -81,6 +89,9 @@
 				500407441E1109FD008CECBB /* GRCubeViewController.m */,
 				500407491E110E58008CECBB /* GRMyStoryDetailViewController.h */,
 				5004074A1E110E58008CECBB /* GRMyStoryDetailViewController.m */,
+				5004074C1E1240B2008CECBB /* GRStoryPlayerView.h */,
+				5004074D1E1240B2008CECBB /* GRStoryPlayerView.m */,
+				500407531E124A9F008CECBB /* videos.txt */,
 			);
 			path = GRStoriesDetailDemo;
 			sourceTree = "<group>";
@@ -96,6 +107,7 @@
 		500407461E110B6B008CECBB /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				5004074F1E12414A008CECBB /* AVFoundation.framework */,
 				500407471E110B6B008CECBB /* QuartzCore.framework */,
 			);
 			name = Frameworks;
@@ -132,6 +144,7 @@
 				TargetAttributes = {
 					500407281E1109DE008CECBB = {
 						CreatedOnToolsVersion = 8.1;
+						DevelopmentTeam = LR2DH4466E;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -161,6 +174,7 @@
 			files = (
 				5004073C1E1109DE008CECBB /* LaunchScreen.storyboard in Resources */,
 				500407391E1109DE008CECBB /* Assets.xcassets in Resources */,
+				500407541E124A9F008CECBB /* videos.txt in Resources */,
 				500407371E1109DE008CECBB /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -174,6 +188,7 @@
 			files = (
 				5004074B1E110E58008CECBB /* GRMyStoryDetailViewController.m in Sources */,
 				500407451E1109FD008CECBB /* GRCubeViewController.m in Sources */,
+				5004074E1E1240B2008CECBB /* GRStoryPlayerView.m in Sources */,
 				500407341E1109DE008CECBB /* ViewController.m in Sources */,
 				500407311E1109DE008CECBB /* AppDelegate.m in Sources */,
 				5004072E1E1109DE008CECBB /* main.m in Sources */,
@@ -294,6 +309,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = LR2DH4466E;
 				INFOPLIST_FILE = GRStoriesDetailDemo/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.zl.GRStoriesDetailDemo;
@@ -305,6 +321,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = LR2DH4466E;
 				INFOPLIST_FILE = GRStoriesDetailDemo/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.zl.GRStoriesDetailDemo;

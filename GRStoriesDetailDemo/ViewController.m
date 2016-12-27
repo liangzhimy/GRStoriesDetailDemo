@@ -9,7 +9,7 @@
 #import "ViewController.h"
 #import "GRMyStoryDetailViewController.h"
 
-@interface ViewController ()
+@interface ViewController () <GRCubeViewControllerDelegate>
 
 @property (strong, nonatomic) NSMutableArray<GRStory *> *datas;
 
@@ -33,14 +33,25 @@
 } 
 
 - (void)__configData {
+    NSString *path = [[NSBundle mainBundle] pathForResource:@"videos" ofType:@"txt"];
+    NSString *content = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:nil];
+    NSArray *videoPaths = [content componentsSeparatedByString:@"\n"];
+    
+    NSInteger i = 0;
     NSMutableArray<GRStory *> *datas = [[NSMutableArray<GRStory *> alloc] init];
-    for (NSInteger i = 0; i < 10; i++) {
+    for (NSString *videoPath in videoPaths) {
+        if (videoPath.length == 0) {
+            continue;
+        }
+        
         GRStory *story = [[GRStory alloc] init];
         story.index = i;
-        [datas addObject:story]; 
+        story.videoURL = [NSURL URLWithString:videoPath];
+        [datas addObject:story];
+        i++; 
     }
     
-    self.datas = datas; 
+    self.datas = datas;
 }
 
 - (void)__configViewControllers {
@@ -50,29 +61,83 @@
         GRStory *story = self.datas[i];
         [detailViewController load:story];
         [self addCubeSideForChildController:detailViewController];
-    } 
+        if (i == 0) {
+            [detailViewController play];
+        } 
+    }
+    
+    [self __preLoadByCurrentViewController:self.childViewControllers[0] index:0];
+} 
+
+- (void)__closeSelf {
+    NSLog(@"close self");
 } 
 
 #pragma mark - GRCubeViewControllerDelegate
 
+- (void)__preLoadByCurrentViewController:(UIViewController *)viewController index:(NSInteger)index {
+    GRMyStoryDetailViewController *storyViewController = (GRMyStoryDetailViewController *)viewController;
+    if (!storyViewController.story) {
+        [self __closeSelf];
+        return; 
+    } 
+    
+    NSInteger currentDataIndex = storyViewController.story.index;
+    
+    NSMutableArray *indexArray = [[NSMutableArray alloc] init];
+    
+    // min
+    NSInteger minIndex = index - 1 < 0 ? self.childViewControllers.count - 1 : index - 1;
+    NSInteger minDataIndex = currentDataIndex - 1;
+    [indexArray addObject:@[@(minIndex), @(minDataIndex)]];
+    
+    // max
+    for (NSInteger i = index + 1; i <= index + 2; i++) {
+        NSInteger viewControllerIndex = i % self.childViewControllers.count;
+        NSInteger dataIndex = currentDataIndex + i - index;
+        [indexArray addObject:@[@(viewControllerIndex), @(dataIndex)]];
+    }
+    
+    for (NSArray *indexs in indexArray) {
+        NSInteger viewControllerIndex = [indexs[0] integerValue];
+        NSInteger dataIndex = [indexs[1] integerValue];
+        
+        NSLog(@"vIndex: %ld, dIndex: %ld", viewControllerIndex, dataIndex);
+        GRMyStoryDetailViewController *myStoryViewController = self.childViewControllers[viewControllerIndex];
+        
+        if (dataIndex < 0 || dataIndex >= self.datas.count) {
+            [myStoryViewController removeStory];
+            myStoryViewController.view.hidden = TRUE;
+            continue;
+        }
+        
+        myStoryViewController.view.hidden = FALSE;
+        
+        GRStory *story = self.datas[dataIndex];
+        [myStoryViewController load:story];
+    }
+} 
+
 - (void)cubeViewController:(id)sender willScrollFromViewContoller:(UIViewController *)viewController index:(NSInteger)index {
 } 
 
-- (void)cubeViewController:(id)sender didScrollToViewController:(UIViewController *)viewController index:(NSInteger)index { 
-    GRMyStoryDetailViewController *storyViewController = (GRMyStoryDetailViewController *)viewController;
-    
-    NSInteger minIndex = MAX(0, index - 2);
-    NSInteger maxIndex = MIN(self.childViewControllers.count - 1, index + 2);
-    for (NSInteger i = minIndex; i < maxIndex; i++) {
-        if (i == index) {
-            continue; 
-        }
-        
-        
-    }
-    
-//    NSInteger index = storyViewController.story.index;
-//    GRStory *story = self.datas[index];
+- (void)cubeViewController:(id)sender didScrollToViewController:(UIViewController *)viewController index:(NSInteger)index {
+    [self __preLoadByCurrentViewController:viewController index:index];
+    GRMyStoryDetailViewController *myStoryViewController = (GRMyStoryDetailViewController *)viewController;
+    [myStoryViewController play];
 }
+
+- (BOOL)cubeViewController:(id)sender isValidWithIndex:(NSInteger)index {
+    GRMyStoryDetailViewController *myStoryViewController = self.childViewControllers[index];
+    if (myStoryViewController.story) {
+        return TRUE;
+    } else {
+        return FALSE;
+    } 
+} 
+
+- (void)cubeViewController:(id)sender willScrollToValidIndex:(NSInteger)index {
+    [self __closeSelf];
+} 
 
 @end

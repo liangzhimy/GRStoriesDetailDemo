@@ -7,6 +7,7 @@
 //
 
 #import "GRMyStoryDetailViewController.h"
+#import "GRStoryPlayerView.h"
 
 @implementation GRStory
 
@@ -15,6 +16,9 @@
 @interface GRMyStoryDetailViewController ()
 
 @property (weak, nonatomic) IBOutlet UILabel *textLabel;
+@property (strong, nonatomic, readwrite) GRStory *story;
+@property (strong, nonatomic) GRStoryPlayerView *playerView; 
+@property (weak, nonatomic) IBOutlet UIView *contentView;
 
 @end
 
@@ -22,7 +26,27 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-     self.textLabel.text = [NSString stringWithFormat:@"%ld", (long)self.story.index];
+    [self __loadStory];
+    [self __configUI]; 
+}
+
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+}
+
+- (void)viewWillLayoutSubviews {
+    [super viewWillLayoutSubviews];
+    self.playerView.frame = self.view.bounds; 
+} 
+
+- (void)__configUI {
+    GRStoryPlayerView *playerView = [[GRStoryPlayerView alloc] initWithFrame:self.view.bounds];
+    [self.contentView addSubview:playerView];
+    self.playerView = playerView; 
+}
+
+- (void)__loadStory {
+    self.textLabel.text = [NSString stringWithFormat:@"%ld", (long)self.story.index];
     NSArray *colors = @[[UIColor redColor],
                         [UIColor blueColor],
                         [UIColor greenColor],
@@ -32,12 +56,17 @@
     self.view.backgroundColor = colors[index];
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-}
-
 - (void)load:(GRStory *)story {
     self.story = story;
+    [self __loadStory];
+} 
+
+- (void)removeStory {
+    self.story = nil;
+}
+
+- (void)play {
+    [self.playerView playerWithURL:self.story.videoURL]; 
 } 
 
 @end

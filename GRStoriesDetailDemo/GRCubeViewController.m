@@ -107,6 +107,7 @@ static const CGFloat __GRDuration    =  0.4f;
     double percentageOfWidth = translation.x / self.view.frame.size.width;
     
     if (gesture.state == UIGestureRecognizerStateBegan) {
+        [self __stopDisplayLink];
         [self __rotateBegin:self.facingSide];
         double rotation = percentageOfWidth * M_PI_2;
         [self __rotateAllSidesBy:rotation];
@@ -120,12 +121,25 @@ static const CGFloat __GRDuration    =  0.4f;
         
         double percentageOfWidthIncludingVelocity = (translation.x + 0.25 * velocity.x) / self.view.frame.size.width;
         self.startAngle = percentageOfWidth * M_PI_2;
-        if (translation.x < 0 && percentageOfWidthIncludingVelocity < -0.5) { 
+    
+        if (translation.x < 0 && percentageOfWidthIncludingVelocity < -0.5) {
             // if moved left (and/or flicked left)
             self.targetAngle = -M_PI_2;
+            
+            NSInteger index = [self __indexWithFacingSide:self.facingSide];
+            if (![self.delegate cubeViewController:self isValidWithIndex:[self __nextIndex:index]]) {
+                [self.delegate cubeViewController:self willScrollToValidIndex:index]; 
+                return;
+            }
         } else if (translation.x > 0 && percentageOfWidthIncludingVelocity > 0.5) {
             // if moved right (and/or flicked right)
             self.targetAngle = M_PI_2;
+            
+            NSInteger index = [self __indexWithFacingSide:self.facingSide];
+            if (![self.delegate cubeViewController:self isValidWithIndex:[self __preIndex:index]]) {
+                [self.delegate cubeViewController:self willScrollToValidIndex:index];
+                return;
+            }
         } else {
             // otherwise, move back to zero
             self.targetAngle = 0.0;
@@ -133,6 +147,29 @@ static const CGFloat __GRDuration    =  0.4f;
         
         [self __startDisplayLink];
     }
+}
+
+- (NSInteger)__preIndex:(NSInteger)index {
+    NSInteger preIndex = index - 1;
+    if (preIndex < 0) {
+        return self.childViewControllers.count - 1;
+    }
+    return preIndex;
+}
+
+- (NSInteger)__nextIndex:(NSInteger)index {
+    return (index + 1) % self.childViewControllers.count;
+}
+
+- (NSInteger)__indexWithFacingSide:(NSInteger)facingSide {
+    NSInteger count = self.childViewControllers.count;
+    for (NSInteger i = 0; i < count; i++) {
+        NSInteger currentIndex  = ((i + _facingSide) % count);
+        if (currentIndex == 0) {
+            return i;
+        }
+    }
+    return -1;
 }
 
 #pragma mark - CADisplayLink
@@ -180,15 +217,11 @@ static const CGFloat __GRDuration    =  0.4f;
     }
 }
 
-- (void)__rotateFinish:(NSInteger)side {
-    NSInteger count = self.childViewControllers.count;
-    for (NSInteger i = 0; i < count; i++) {
-        NSInteger currentIndex  = ((i + _facingSide) % count);
-        if (currentIndex == 0) {
-            UIViewController *viewController = self.childViewControllers[i];
-            [self.delegate cubeViewController:self didScrollToViewController:viewController index:currentIndex];
-        } 
-    }
+
+- (void)__rotateFinish:(NSInteger)facingSide {
+    NSInteger index = [self __indexWithFacingSide:facingSide];
+    UIViewController *viewController = self.childViewControllers[index];
+    [self.delegate cubeViewController:self didScrollToViewController:viewController index:index];
 }
 
 @end

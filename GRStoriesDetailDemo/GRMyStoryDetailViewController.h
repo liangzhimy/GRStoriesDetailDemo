@@ -10,14 +10,19 @@
 
 @interface GRStory : NSObject
 
-@property (assign, nonatomic) NSInteger index; 
+@property (assign, nonatomic) NSInteger index;
+@property (strong, nonatomic) NSURL *videoURL;
 
 @end
 
 @interface GRMyStoryDetailViewController : UIViewController
 
-@property (strong, nonatomic) GRStory *story;
+@property (strong, nonatomic, readonly) GRStory *story;
 
 - (void)load:(GRStory *)story;
+
+- (void)removeStory;
+
+- (void)play; 
 
 @end

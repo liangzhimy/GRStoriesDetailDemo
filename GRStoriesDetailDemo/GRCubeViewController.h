@@ -21,6 +21,10 @@
 
 - (void)cubeViewController:(id)sender didScrollToViewController:(UIViewController *)viewController index:(NSInteger)index;
 
+- (BOOL)cubeViewController:(id)sender isValidWithIndex:(NSInteger)index;
+
+- (void)cubeViewController:(id)sender willScrollToValidIndex:(NSInteger)index; 
+
 @end
 
 @interface GRCubeViewController : UIViewController
