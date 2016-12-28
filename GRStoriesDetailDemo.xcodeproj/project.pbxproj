@@ -19,6 +19,12 @@
 		5004074E1E1240B2008CECBB /* GRStoryPlayerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5004074D1E1240B2008CECBB /* GRStoryPlayerView.m */; };
 		500407501E12414A008CECBB /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5004074F1E12414A008CECBB /* AVFoundation.framework */; };
 		500407541E124A9F008CECBB /* videos.txt in Resources */ = {isa = PBXBuildFile; fileRef = 500407531E124A9F008CECBB /* videos.txt */; };
+		50F323781E13C3CB00941C80 /* GRCacheVideoPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 50F323771E13C3CB00941C80 /* GRCacheVideoPlayer.m */; };
+		50F3237C1E13C65500941C80 /* NSURL+CacheVideoPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 50F3237B1E13C65500941C80 /* NSURL+CacheVideoPlayer.m */; };
+		50F323941E13C92400941C80 /* GRCacheVideoFileUtility.m in Sources */ = {isa = PBXBuildFile; fileRef = 50F323931E13C92400941C80 /* GRCacheVideoFileUtility.m */; };
+		50F323971E13C96000941C80 /* GRVideoCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 50F323961E13C96000941C80 /* GRVideoCache.m */; };
+		50F3239A1E13CC4E00941C80 /* GRResourceLoader.m in Sources */ = {isa = PBXBuildFile; fileRef = 50F323991E13CC4E00941C80 /* GRResourceLoader.m */; };
+		50F3239D1E13CDC000941C80 /* GRRequestTask.m in Sources */ = {isa = PBXBuildFile; fileRef = 50F3239C1E13CDC000941C80 /* GRRequestTask.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -41,6 +47,18 @@
 		5004074D1E1240B2008CECBB /* GRStoryPlayerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GRStoryPlayerView.m; sourceTree = "<group>"; };
 		5004074F1E12414A008CECBB /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		500407531E124A9F008CECBB /* videos.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = videos.txt; sourceTree = "<group>"; };
+		50F323761E13C3CB00941C80 /* GRCacheVideoPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GRCacheVideoPlayer.h; sourceTree = "<group>"; };
+		50F323771E13C3CB00941C80 /* GRCacheVideoPlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GRCacheVideoPlayer.m; sourceTree = "<group>"; };
+		50F3237A1E13C65500941C80 /* NSURL+CacheVideoPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSURL+CacheVideoPlayer.h"; sourceTree = "<group>"; };
+		50F3237B1E13C65500941C80 /* NSURL+CacheVideoPlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSURL+CacheVideoPlayer.m"; sourceTree = "<group>"; };
+		50F323921E13C92400941C80 /* GRCacheVideoFileUtility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GRCacheVideoFileUtility.h; sourceTree = "<group>"; };
+		50F323931E13C92400941C80 /* GRCacheVideoFileUtility.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GRCacheVideoFileUtility.m; sourceTree = "<group>"; };
+		50F323951E13C96000941C80 /* GRVideoCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GRVideoCache.h; sourceTree = "<group>"; };
+		50F323961E13C96000941C80 /* GRVideoCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GRVideoCache.m; sourceTree = "<group>"; };
+		50F323981E13CC4E00941C80 /* GRResourceLoader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GRResourceLoader.h; sourceTree = "<group>"; };
+		50F323991E13CC4E00941C80 /* GRResourceLoader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GRResourceLoader.m; sourceTree = "<group>"; };
+		50F3239B1E13CDC000941C80 /* GRRequestTask.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GRRequestTask.h; sourceTree = "<group>"; };
+		50F3239C1E13CDC000941C80 /* GRRequestTask.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GRRequestTask.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -76,6 +94,7 @@
 		5004072B1E1109DE008CECBB /* GRStoriesDetailDemo */ = {
 			isa = PBXGroup;
 			children = (
+				50F323351E13AF8B00941C80 /* GRCacheVideoPlayer */,
 				5004072F1E1109DE008CECBB /* AppDelegate.h */,
 				500407301E1109DE008CECBB /* AppDelegate.m */,
 				500407321E1109DE008CECBB /* ViewController.h */,
@@ -111,6 +130,25 @@
 				500407471E110B6B008CECBB /* QuartzCore.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		50F323351E13AF8B00941C80 /* GRCacheVideoPlayer */ = {
+			isa = PBXGroup;
+			children = (
+				50F323761E13C3CB00941C80 /* GRCacheVideoPlayer.h */,
+				50F323771E13C3CB00941C80 /* GRCacheVideoPlayer.m */,
+				50F3237A1E13C65500941C80 /* NSURL+CacheVideoPlayer.h */,
+				50F3237B1E13C65500941C80 /* NSURL+CacheVideoPlayer.m */,
+				50F323921E13C92400941C80 /* GRCacheVideoFileUtility.h */,
+				50F323931E13C92400941C80 /* GRCacheVideoFileUtility.m */,
+				50F323951E13C96000941C80 /* GRVideoCache.h */,
+				50F323961E13C96000941C80 /* GRVideoCache.m */,
+				50F323981E13CC4E00941C80 /* GRResourceLoader.h */,
+				50F323991E13CC4E00941C80 /* GRResourceLoader.m */,
+				50F3239B1E13CDC000941C80 /* GRRequestTask.h */,
+				50F3239C1E13CDC000941C80 /* GRRequestTask.m */,
+			);
+			path = GRCacheVideoPlayer;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -186,11 +224,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				50F3239A1E13CC4E00941C80 /* GRResourceLoader.m in Sources */,
 				5004074B1E110E58008CECBB /* GRMyStoryDetailViewController.m in Sources */,
+				50F323781E13C3CB00941C80 /* GRCacheVideoPlayer.m in Sources */,
 				500407451E1109FD008CECBB /* GRCubeViewController.m in Sources */,
 				5004074E1E1240B2008CECBB /* GRStoryPlayerView.m in Sources */,
+				50F3237C1E13C65500941C80 /* NSURL+CacheVideoPlayer.m in Sources */,
 				500407341E1109DE008CECBB /* ViewController.m in Sources */,
+				50F3239D1E13CDC000941C80 /* GRRequestTask.m in Sources */,
+				50F323941E13C92400941C80 /* GRCacheVideoFileUtility.m in Sources */,
 				500407311E1109DE008CECBB /* AppDelegate.m in Sources */,
+				50F323971E13C96000941C80 /* GRVideoCache.m in Sources */,
 				5004072E1E1109DE008CECBB /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -348,6 +392,7 @@
 				500407421E1109DE008CECBB /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

@@ -8,6 +8,7 @@
 
 #import "GRMyStoryDetailViewController.h"
 #import "GRStoryPlayerView.h"
+#import "SUPlayer.h"
 
 @implementation GRStory
 
@@ -17,7 +18,7 @@
 
 @property (weak, nonatomic) IBOutlet UILabel *textLabel;
 @property (strong, nonatomic, readwrite) GRStory *story;
-@property (strong, nonatomic) GRStoryPlayerView *playerView; 
+@property (strong, nonatomic) SUPlayer *playerView;
 @property (weak, nonatomic) IBOutlet UIView *contentView;
 
 @end
@@ -40,7 +41,7 @@
 } 
 
 - (void)__configUI {
-    GRStoryPlayerView *playerView = [[GRStoryPlayerView alloc] initWithFrame:self.view.bounds];
+    SUPlayer *playerView = [[SUPlayer alloc] initWithFrame:self.view.bounds];
     [self.contentView addSubview:playerView];
     self.playerView = playerView; 
 }
@@ -66,7 +67,7 @@
 }
 
 - (void)play {
-    [self.playerView playerWithURL:self.story.videoURL]; 
+    [self.playerView replaceItemWithURL:self.story.videoURL];
 } 
 
 @end
