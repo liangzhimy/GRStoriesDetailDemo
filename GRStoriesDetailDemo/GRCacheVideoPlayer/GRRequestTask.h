@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@protocol SURequestTaskDelegate <NSObject>
+@protocol GRRequestTaskDelegate <NSObject>
 @required
 - (void)requestTaskDidUpdateCache;
 
@@ -21,14 +21,15 @@
 
 @interface GRRequestTask : NSObject
 
-@property (weak, nonatomic) id<SURequestTaskDelegate> delegate;
+@property (weak, nonatomic) id<GRRequestTaskDelegate> delegate;
 @property (strong, nonatomic) NSURL * requestURL;
 @property (assign, nonatomic) NSUInteger requestOffset;
 @property (assign, nonatomic) NSUInteger fileLength;
 @property (assign, nonatomic) NSUInteger cacheLength;
 @property (assign, nonatomic) BOOL cache;
-@property (assign, nonatomic) BOOL cancel;
 
 - (void)start;
+
+- (void)cancel; 
 
 @end

@@ -16,6 +16,7 @@ static const NSTimeInterval __GRRequestTimeout = 10.0;
 
 @property (nonatomic, strong) NSURLSession * session;
 @property (nonatomic, strong) NSURLSessionDataTask * task;
+@property (assign, nonatomic) BOOL isCancel;
 
 @end
 
@@ -28,6 +29,9 @@ static const NSTimeInterval __GRRequestTimeout = 10.0;
 }
 
 - (void)start {
+    NSURL *tmpFileURL = [[GRVideoCache shareInstance] tmpVideoPathWithURL:self.requestURL];
+    [GRCacheVideoFileUtility createFilePath:[tmpFileURL path]];
+    
     NSMutableURLRequest * request = [NSMutableURLRequest requestWithURL:self.requestURL cachePolicy:NSURLRequestReloadIgnoringCacheData timeoutInterval:__GRRequestTimeout];
     
     if (self.requestOffset > 0) {
@@ -42,51 +46,66 @@ static const NSTimeInterval __GRRequestTimeout = 10.0;
     [self.task resume];
 }
 
-- (void)setCancel:(BOOL)cancel {
-    _cancel = cancel;
-    [self.task cancel];
-    [self.session invalidateAndCancel];
+- (void)cancel {
+    self.isCancel = TRUE; 
+}
+
+- (void)setCancel:(BOOL)isCancel {
+    _isCancel = isCancel;
+    
+    if (_isCancel) { 
+        [self.task cancel];
+        [self.session invalidateAndCancel];
+    } 
 }
 
 #pragma mark - NSURLSessionDataDelegate
 - (void)URLSession:(NSURLSession *)session dataTask:(NSURLSessionDataTask *)dataTask didReceiveResponse:(NSURLResponse *)response completionHandler:(void (^)(NSURLSessionResponseDisposition))completionHandler {
-    if (self.cancel) return;
+    if (self.isCancel) {
+        return;
+    }
+    
     NSLog(@"response: %@",response);
     completionHandler(NSURLSessionResponseAllow);
     NSHTTPURLResponse * httpResponse = (NSHTTPURLResponse *)response;
-    NSString * contentRange = [[httpResponse allHeaderFields] objectForKey:@"Content-Range"];
-    NSString * fileLength = [[contentRange componentsSeparatedByString:@"/"] lastObject];
+    NSString *contentRange = [[httpResponse allHeaderFields] objectForKey:@"Content-Range"];
+    NSString *fileLength = [[contentRange componentsSeparatedByString:@"/"] lastObject];
     self.fileLength = fileLength.integerValue > 0 ? fileLength.integerValue : response.expectedContentLength;
     
+    [[GRVideoCache shareInstance] setFileLength:self.fileLength forURL:self.requestURL]; 
     if (self.delegate && [self.delegate respondsToSelector:@selector(requestTaskDidReceiveResponse)]) {
         [self.delegate requestTaskDidReceiveResponse];
     }
 }
 
 - (void)URLSession:(NSURLSession *)session dataTask:(NSURLSessionDataTask *)dataTask didReceiveData:(NSData *)data {
-    if (self.cancel) return;
-    [GRCacheVideoFileUtility writeFileData:data filePath:self.requestURL];
+    if (self.isCancel) {
+        return;
+    }
+    
+    NSURL *tmpFilePath = [[GRVideoCache shareInstance] tmpVideoPathWithURL:self.requestURL];
+    [GRCacheVideoFileUtility writeFileData:data filePath:tmpFilePath];
     self.cacheLength += data.length;
+    
     if (self.delegate && [self.delegate respondsToSelector:@selector(requestTaskDidUpdateCache)]) {
         [self.delegate requestTaskDidUpdateCache];
     }
 }
 
-//请求完成会调用该方法，请求失败则error有值
 - (void)URLSession:(NSURLSession *)session task:(NSURLSessionTask *)task didCompleteWithError:(NSError *)error {
-    if (self.cancel) {
-        NSLog(@"下载取消");
-    }else {
+    if (self.isCancel) {
+        NSLog(@"isCancel");
+    } else {
         if (error) {
             if (self.delegate && [self.delegate respondsToSelector:@selector(requestTaskDidFailWithError:)]) {
                 [self.delegate requestTaskDidFailWithError:error];
             }
-        }else {
-            //可以缓存则保存文件
+        } else {
             if (self.cache) {
-                [[GRVideoCache shareInstance] setVideoPath:[] forKey:[self.requestURL absoluteString]];
-//                [SUFileHandle cacheTempFileWithFileName:[NSString fileNameWithURL:self.requestURL]];
+                NSURL *tmpFilePath = [[GRVideoCache shareInstance] tmpVideoPathWithURL:self.requestURL];
+                [[GRVideoCache shareInstance] setVideoPath:tmpFilePath forURL:self.requestURL];
             }
+            
             if (self.delegate && [self.delegate respondsToSelector:@selector(requestTaskDidFinishLoadingWithCache:)]) {
                 [self.delegate requestTaskDidFinishLoadingWithCache:self.cache];
             }

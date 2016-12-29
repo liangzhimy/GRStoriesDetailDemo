@@ -12,4 +12,10 @@
 
 + (void)writeFileData:(NSData *)data filePath:(NSURL *)path;
 
++ (NSData *)readTempFileDataWithOffset:(NSUInteger)offset length:(NSUInteger)length filePath:(NSURL *)path;
+
++ (void)createFilePath:(NSString *)filePath;
+
++ (NSUInteger)byteSizeWithFileURL:(NSURL *)fileURL; 
+
 @end

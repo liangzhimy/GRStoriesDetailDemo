@@ -9,15 +9,17 @@
 #import "GRCacheVideoPlayer.h"
 #import "NSURL+CacheVideoPlayer.h"
 #import "GRVideoCache.h"
+#import "GRResourceLoader.h"
 
 static NSString * const __GRPlayerItemKeyPathStatus = @"status";
 static NSString * const __GRPlayerItemKeyPathTimeRanges = @"loadedTimeRanges";
 
-@interface GRCacheVideoPlayer ()
+@interface GRCacheVideoPlayer () <GRResourceLoaderDelegate>
 
 @property (strong, nonatomic) NSURL *videoURL;
 @property (strong, nonatomic) AVPlayer *player;
 @property (strong, nonatomic) AVPlayerItem *playerItem;
+@property (strong, nonatomic) GRResourceLoader *resourceLoader;
 
 @end
 
@@ -43,17 +45,15 @@ static NSString * const __GRPlayerItemKeyPathTimeRanges = @"loadedTimeRanges";
 }
 
 - (void)playWithURL:(NSURL *)videoURL {
-    [self __removeObserver];
-    
     self.videoURL = videoURL;
-    self.playerItem = [AVPlayerItem playerItemWithURL:videoURL];
     
     if ([self.videoURL.absoluteString hasPrefix:@"http"]) {
-        NSURL *cacheFilePath = [GRVideoCache videoPathWithURL:videoURL];
+        NSURL *cacheFilePath = [[GRVideoCache shareInstance] videoPathWithURL:videoURL];
         if (cacheFilePath) {
-            self.playerItem = [AVPlayerItem playerItemWithURL:cacheFilePath];
+            NSURL *localURL = [NSURL URLWithString:[@"file://" stringByAppendingString:cacheFilePath.path]];
+            self.playerItem = [AVPlayerItem playerItemWithURL:localURL];
         } else {
-            self.resourceLoader = [[SUResourceLoader alloc] init];
+            self.resourceLoader = [[GRResourceLoader alloc] init];
             self.resourceLoader.delegate = self;
             
             AVURLAsset * asset = [AVURLAsset URLAssetWithURL:[videoURL customSchemeURL] options:nil];
@@ -64,7 +64,6 @@ static NSString * const __GRPlayerItemKeyPathTimeRanges = @"loadedTimeRanges";
         self.playerItem = [AVPlayerItem playerItemWithURL:videoURL];
     }
     
-    self.playerItem = [AVPlayerItem playerItemWithURL:videoURL];
     self.player = [AVPlayer playerWithPlayerItem:self.playerItem];
     [self __addObserver:self.playerItem];
 }
@@ -109,14 +108,23 @@ static NSString * const __GRPlayerItemKeyPathTimeRanges = @"loadedTimeRanges";
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
     AVPlayerItem *playerItem = (AVPlayerItem *)object;
-    if ([keyPath isEqualToString:@"status"]) {
+    if ([keyPath isEqualToString:__GRPlayerItemKeyPathStatus]) {
         if ([playerItem status] == AVPlayerStatusReadyToPlay) {
             [self.player play];
         } else if ([playerItem status] == AVPlayerStatusFailed) {
             NSLog(@"AVPlayerStatusFailed");
         }
     } else if ([keyPath isEqualToString:@"loadedTimeRanges"]) {
+        
     }
+}
+
+#pragma mark - GRResourceLoadDelegate
+
+- (void)loader:(GRResourceLoader *)loader cacheProgress:(CGFloat)progress {
+}
+
+- (void)loader:(GRResourceLoader *)loader failLoadingWithError:(NSError *)error {
 }
 
 @end

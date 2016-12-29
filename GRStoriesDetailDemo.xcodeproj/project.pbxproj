@@ -25,6 +25,7 @@
 		50F323971E13C96000941C80 /* GRVideoCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 50F323961E13C96000941C80 /* GRVideoCache.m */; };
 		50F3239A1E13CC4E00941C80 /* GRResourceLoader.m in Sources */ = {isa = PBXBuildFile; fileRef = 50F323991E13CC4E00941C80 /* GRResourceLoader.m */; };
 		50F3239D1E13CDC000941C80 /* GRRequestTask.m in Sources */ = {isa = PBXBuildFile; fileRef = 50F3239C1E13CDC000941C80 /* GRRequestTask.m */; };
+		50F3239F1E14B03900941C80 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 50F3239E1E14B03900941C80 /* MobileCoreServices.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -59,6 +60,7 @@
 		50F323991E13CC4E00941C80 /* GRResourceLoader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GRResourceLoader.m; sourceTree = "<group>"; };
 		50F3239B1E13CDC000941C80 /* GRRequestTask.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GRRequestTask.h; sourceTree = "<group>"; };
 		50F3239C1E13CDC000941C80 /* GRRequestTask.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GRRequestTask.m; sourceTree = "<group>"; };
+		50F3239E1E14B03900941C80 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -66,6 +68,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				50F3239F1E14B03900941C80 /* MobileCoreServices.framework in Frameworks */,
 				500407501E12414A008CECBB /* AVFoundation.framework in Frameworks */,
 				500407481E110B6B008CECBB /* QuartzCore.framework in Frameworks */,
 			);
@@ -126,6 +129,7 @@
 		500407461E110B6B008CECBB /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				50F3239E1E14B03900941C80 /* MobileCoreServices.framework */,
 				5004074F1E12414A008CECBB /* AVFoundation.framework */,
 				500407471E110B6B008CECBB /* QuartzCore.framework */,
 			);

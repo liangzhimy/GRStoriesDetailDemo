@@ -16,6 +16,10 @@
 
 - (NSURL *)tmpVideoPathWithURL:(NSURL *)videoURL;
 
-- (void)setVideoPath:(NSURL *)path forURL:(NSURL *)URL; 
+- (BOOL)setVideoPath:(NSURL *)path forURL:(NSURL *)videoURL;
+
+- (NSUInteger)fileLengthForURL:(NSURL *)videoURL;
+
+- (void)setFileLength:(NSUInteger)fileLength forURL:(NSURL *)videoURL;
 
 @end

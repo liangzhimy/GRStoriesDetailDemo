@@ -16,4 +16,10 @@
     return [components URL];
 }
 
+- (NSURL *)originalSchemeURL {
+    NSURLComponents * components = [[NSURLComponents alloc] initWithURL:self resolvingAgainstBaseURL:NO];
+    components.scheme = @"http";
+    return [components URL];
+}
+
 @end
