@@ -8,6 +8,8 @@
 
 #import <Foundation/Foundation.h>
 
+@class GRRequestTask;
+
 @protocol GRRequestTaskDelegate <NSObject>
 @required
 - (void)requestTaskDidUpdateCache;
@@ -16,6 +18,10 @@
 - (void)requestTaskDidReceiveResponse;
 - (void)requestTaskDidFinishLoadingWithCache:(BOOL)cache;
 - (void)requestTaskDidFailWithError:(NSError *)error;
+
+@required
+- (void)requestTask:(GRRequestTask *)task didReceiveResponse:(NSURLResponse *)response;
+- (void)requestTask:(GRRequestTask *)task didReceiveData:(NSData *)data;
 
 @end
 

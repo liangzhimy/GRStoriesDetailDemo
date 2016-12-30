@@ -8,6 +8,7 @@
 
 #import "ViewController.h"
 #import "GRMyStoryDetailViewController.h"
+#import "GRVideoDownloadManager.h"
 
 @interface ViewController () <GRCubeViewControllerDelegate>
 
@@ -61,6 +62,11 @@
         GRStory *story = self.datas[i];
         [detailViewController load:story];
         [self addCubeSideForChildController:detailViewController];
+        
+        if (i == 0) { 
+            [[GRVideoDownloadManager shareInstance] addDownload:story.videoURL];
+        } 
+        
         if (i == 0) {
             [detailViewController play];
         } 
@@ -74,7 +80,6 @@
 } 
 
 #pragma mark - GRCubeViewControllerDelegate
-
 - (void)__preLoadByCurrentViewController:(UIViewController *)viewController index:(NSInteger)index {
     GRMyStoryDetailViewController *storyViewController = (GRMyStoryDetailViewController *)viewController;
     if (!storyViewController.story) {
@@ -114,6 +119,7 @@
         myStoryViewController.view.hidden = FALSE;
         
         GRStory *story = self.datas[dataIndex];
+        [[GRVideoDownloadManager shareInstance] addDownload:story.videoURL];
         [myStoryViewController load:story];
     }
 } 
@@ -123,8 +129,15 @@
 
 - (void)cubeViewController:(id)sender didScrollToViewController:(UIViewController *)viewController index:(NSInteger)index {
     [self __preLoadByCurrentViewController:viewController index:index];
+    
     GRMyStoryDetailViewController *myStoryViewController = (GRMyStoryDetailViewController *)viewController;
-    [myStoryViewController play];
+    for (GRMyStoryDetailViewController *detailViewController in self.childViewControllers) {
+        if (detailViewController != myStoryViewController) {
+            [myStoryViewController pause];
+        } else {
+            [myStoryViewController play];
+        }
+    }
 }
 
 - (BOOL)cubeViewController:(id)sender isValidWithIndex:(NSInteger)index {

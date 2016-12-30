@@ -14,7 +14,7 @@
 
 + (NSData *)readTempFileDataWithOffset:(NSUInteger)offset length:(NSUInteger)length filePath:(NSURL *)path;
 
-+ (void)createFilePath:(NSString *)filePath;
++ (BOOL)createFilePathIfNotExist:(NSString *)filePath;
 
 + (NSUInteger)byteSizeWithFileURL:(NSURL *)fileURL; 
 

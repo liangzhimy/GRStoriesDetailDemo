@@ -26,6 +26,7 @@
 		50F3239A1E13CC4E00941C80 /* GRResourceLoader.m in Sources */ = {isa = PBXBuildFile; fileRef = 50F323991E13CC4E00941C80 /* GRResourceLoader.m */; };
 		50F3239D1E13CDC000941C80 /* GRRequestTask.m in Sources */ = {isa = PBXBuildFile; fileRef = 50F3239C1E13CDC000941C80 /* GRRequestTask.m */; };
 		50F3239F1E14B03900941C80 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 50F3239E1E14B03900941C80 /* MobileCoreServices.framework */; };
+		50F323A21E15FB3C00941C80 /* GRVideoDownloadManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 50F323A11E15FB3C00941C80 /* GRVideoDownloadManager.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -61,6 +62,8 @@
 		50F3239B1E13CDC000941C80 /* GRRequestTask.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GRRequestTask.h; sourceTree = "<group>"; };
 		50F3239C1E13CDC000941C80 /* GRRequestTask.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GRRequestTask.m; sourceTree = "<group>"; };
 		50F3239E1E14B03900941C80 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
+		50F323A01E15FB3C00941C80 /* GRVideoDownloadManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GRVideoDownloadManager.h; sourceTree = "<group>"; };
+		50F323A11E15FB3C00941C80 /* GRVideoDownloadManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GRVideoDownloadManager.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -151,6 +154,8 @@
 				50F323991E13CC4E00941C80 /* GRResourceLoader.m */,
 				50F3239B1E13CDC000941C80 /* GRRequestTask.h */,
 				50F3239C1E13CDC000941C80 /* GRRequestTask.m */,
+				50F323A01E15FB3C00941C80 /* GRVideoDownloadManager.h */,
+				50F323A11E15FB3C00941C80 /* GRVideoDownloadManager.m */,
 			);
 			path = GRCacheVideoPlayer;
 			sourceTree = "<group>";
@@ -230,6 +235,7 @@
 			files = (
 				50F3239A1E13CC4E00941C80 /* GRResourceLoader.m in Sources */,
 				5004074B1E110E58008CECBB /* GRMyStoryDetailViewController.m in Sources */,
+				50F323A21E15FB3C00941C80 /* GRVideoDownloadManager.m in Sources */,
 				50F323781E13C3CB00941C80 /* GRCacheVideoPlayer.m in Sources */,
 				500407451E1109FD008CECBB /* GRCubeViewController.m in Sources */,
 				5004074E1E1240B2008CECBB /* GRStoryPlayerView.m in Sources */,

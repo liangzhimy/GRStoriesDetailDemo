@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import <AVFoundation/AVFoundation.h>
+#import "GRVideoDownloadManager.h"
 
 @class GRResourceLoader;
 @protocol GRResourceLoaderDelegate <NSObject>
@@ -22,6 +23,7 @@
 
 @interface GRResourceLoader : NSObject <AVAssetResourceLoaderDelegate>
 
+@property (strong, nonatomic) GRVideoDownloadManager *videoDownloadManager; 
 @property (weak, nonatomic) id<GRResourceLoaderDelegate> delegate;
 @property (assign, nonatomic) BOOL cacheFinished;
 

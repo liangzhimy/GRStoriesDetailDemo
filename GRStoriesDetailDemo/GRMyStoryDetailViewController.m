@@ -63,11 +63,16 @@
 } 
 
 - (void)removeStory {
+    [self.playerView stop]; 
     self.story = nil;
 }
 
 - (void)play {
     [self.playerView playWithURL:self.story.videoURL]; 
+} 
+
+- (void)pause {
+    [self.playerView pause]; 
 } 
 
 @end

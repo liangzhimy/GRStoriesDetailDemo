@@ -30,14 +30,22 @@ static const NSTimeInterval __GRRequestTimeout = 10.0;
 
 - (void)start {
     NSURL *tmpFileURL = [[GRVideoCache shareInstance] tmpVideoPathWithURL:self.requestURL];
-    [GRCacheVideoFileUtility createFilePath:[tmpFileURL path]];
+    [GRCacheVideoFileUtility createFilePathIfNotExist:[tmpFileURL path]];
     
-    NSMutableURLRequest * request = [NSMutableURLRequest requestWithURL:self.requestURL cachePolicy:NSURLRequestReloadIgnoringCacheData timeoutInterval:__GRRequestTimeout];
+    NSUInteger fullFileLength = [[GRVideoCache shareInstance] fileLengthForURL:self.requestURL];
+    NSUInteger nowFileLength = [GRCacheVideoFileUtility byteSizeWithFileURL:tmpFileURL];
     
-    if (self.requestOffset > 0) {
-        [request addValue:[NSString stringWithFormat:@"bytes=%ld-%ld", self.requestOffset, self.fileLength - 1] forHTTPHeaderField:@"Range"];
+    if ((fullFileLength > 0) && fullFileLength <= nowFileLength) {
+        return;
     }
     
+    self.requestOffset = nowFileLength;
+    
+    NSLog(@"requestURL %@", self.requestURL);
+    
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:self.requestURL cachePolicy:NSURLRequestReloadIgnoringCacheData timeoutInterval:__GRRequestTimeout];
+    
+    [request addValue:[NSString stringWithFormat:@"bytes=%ld-", self.requestOffset] forHTTPHeaderField:@"Range"];
     self.session = [NSURLSession
                     sessionWithConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]
                     delegate:self
@@ -65,17 +73,25 @@ static const NSTimeInterval __GRRequestTimeout = 10.0;
         return;
     }
     
-    NSLog(@"response: %@",response);
+    NSLog(@"=== response: %@",response);
+    
     completionHandler(NSURLSessionResponseAllow);
     NSHTTPURLResponse * httpResponse = (NSHTTPURLResponse *)response;
     NSString *contentRange = [[httpResponse allHeaderFields] objectForKey:@"Content-Range"];
     NSString *fileLength = [[contentRange componentsSeparatedByString:@"/"] lastObject];
     self.fileLength = fileLength.integerValue > 0 ? fileLength.integerValue : response.expectedContentLength;
     
-    [[GRVideoCache shareInstance] setFileLength:self.fileLength forURL:self.requestURL]; 
+    if (self.fileLength > 0) { 
+        [[GRVideoCache shareInstance] setFileLength:self.fileLength forURL:self.requestURL];
+    } 
+    
     if (self.delegate && [self.delegate respondsToSelector:@selector(requestTaskDidReceiveResponse)]) {
         [self.delegate requestTaskDidReceiveResponse];
     }
+    
+    if (self.delegate) {
+        [self.delegate requestTask:self didReceiveResponse:response];
+    } 
 }
 
 - (void)URLSession:(NSURLSession *)session dataTask:(NSURLSessionDataTask *)dataTask didReceiveData:(NSData *)data {
@@ -90,6 +106,10 @@ static const NSTimeInterval __GRRequestTimeout = 10.0;
     if (self.delegate && [self.delegate respondsToSelector:@selector(requestTaskDidUpdateCache)]) {
         [self.delegate requestTaskDidUpdateCache];
     }
+    
+    if (self.delegate) {
+        [self.delegate requestTask:self didReceiveData:data]; 
+    } 
 }
 
 - (void)URLSession:(NSURLSession *)session task:(NSURLSessionTask *)task didCompleteWithError:(NSError *)error {
@@ -112,6 +132,5 @@ static const NSTimeInterval __GRRequestTimeout = 10.0;
         }
     }
 }
-
 
 @end

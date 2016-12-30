@@ -10,6 +10,7 @@
 #import "NSURL+CacheVideoPlayer.h"
 #import "GRVideoCache.h"
 #import "GRResourceLoader.h"
+#import "GRVideoDownloadManager.h"
 
 static NSString * const __GRPlayerItemKeyPathStatus = @"status";
 static NSString * const __GRPlayerItemKeyPathTimeRanges = @"loadedTimeRanges";
@@ -53,7 +54,9 @@ static NSString * const __GRPlayerItemKeyPathTimeRanges = @"loadedTimeRanges";
             NSURL *localURL = [NSURL URLWithString:[@"file://" stringByAppendingString:cacheFilePath.path]];
             self.playerItem = [AVPlayerItem playerItemWithURL:localURL];
         } else {
+            
             self.resourceLoader = [[GRResourceLoader alloc] init];
+            self.resourceLoader.videoDownloadManager = [GRVideoDownloadManager shareInstance]; 
             self.resourceLoader.delegate = self;
             
             AVURLAsset * asset = [AVURLAsset URLAssetWithURL:[videoURL customSchemeURL] options:nil];
@@ -77,6 +80,7 @@ static NSString * const __GRPlayerItemKeyPathTimeRanges = @"loadedTimeRanges";
 }
 
 - (void)stop {
+    [self.player pause];
     [self __removeObserver:self.playerItem];
     self.playerItem = nil; 
     self.player = nil;
@@ -102,8 +106,12 @@ static NSString * const __GRPlayerItemKeyPathTimeRanges = @"loadedTimeRanges";
 }
 
 - (void)__removeObserver:(AVPlayerItem *)playerItem {
-    [self.playerItem removeObserver:self forKeyPath:__GRPlayerItemKeyPathStatus];
-    [self.playerItem removeObserver:self forKeyPath:__GRPlayerItemKeyPathTimeRanges];
+    @try {
+        [self.playerItem removeObserver:self forKeyPath:__GRPlayerItemKeyPathStatus];
+        [self.playerItem removeObserver:self forKeyPath:__GRPlayerItemKeyPathTimeRanges];    
+    } @catch (NSException *exception) {
+        
+    }
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {

@@ -23,6 +23,8 @@
 
 - (void)removeStory;
 
-- (void)play; 
+- (void)play;
+
+- (void)pause; 
 
 @end

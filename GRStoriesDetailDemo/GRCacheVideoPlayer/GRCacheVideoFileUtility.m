@@ -10,12 +10,14 @@
 
 @implementation GRCacheVideoFileUtility
 
-+ (void)createFilePath:(NSString *)filePath {
++ (BOOL)createFilePathIfNotExist:(NSString *)filePath {
     NSFileManager *fileManager = [NSFileManager defaultManager];
     BOOL isDir = FALSE;
     if (![fileManager fileExistsAtPath:filePath isDirectory:&isDir]) {
         [fileManager createFileAtPath:filePath contents:nil attributes:nil];
+        return TRUE;
     }
+    return FALSE;
 } 
 
 + (void)writeFileData:(NSData *)data filePath:(NSURL *)path {
