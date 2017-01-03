@@ -13,7 +13,6 @@
 #import "GRVideoDownloadManager.h"
 
 static NSString * const __GRPlayerItemKeyPathStatus = @"status";
-static NSString * const __GRPlayerItemKeyPathTimeRanges = @"loadedTimeRanges";
 
 @interface GRCacheVideoPlayer () <GRResourceLoaderDelegate>
 
@@ -21,6 +20,9 @@ static NSString * const __GRPlayerItemKeyPathTimeRanges = @"loadedTimeRanges";
 @property (strong, nonatomic) AVPlayer *player;
 @property (strong, nonatomic) AVPlayerItem *playerItem;
 @property (strong, nonatomic) GRResourceLoader *resourceLoader;
+@property (strong, nonatomic) NSMutableArray *playerItemsObservers;
+@property (strong, nonatomic) NSMutableArray *playerObservers;
+@property (strong, nonatomic) id timeObserver;
 
 @end
 
@@ -29,6 +31,13 @@ static NSString * const __GRPlayerItemKeyPathTimeRanges = @"loadedTimeRanges";
 + (Class)layerClass {
     return [AVPlayerLayer class];
 }
+
+- (void)dealloc {
+    if (self.player) { 
+        [self __removeObserverWithPlayerItem:self.player.currentItem];
+        [self __removePlayerObserver];
+    } 
+} 
 
 - (AVPlayer *)player {
     return [(AVPlayerLayer *)[self layer] player];
@@ -40,35 +49,55 @@ static NSString * const __GRPlayerItemKeyPathTimeRanges = @"loadedTimeRanges";
 
 - (void)setPlayerItem:(AVPlayerItem *)playerItem {
     if (_playerItem) {
-        [self __removeObserver:_playerItem];
+        [self __removeObserverWithPlayerItem:_playerItem];
     }
     _playerItem = playerItem;
 }
+
+- (NSMutableArray *)playerItemsObservers {
+    if (!_playerItemsObservers) {
+        _playerItemsObservers = [[NSMutableArray alloc] init];
+    }
+    return _playerItemsObservers;
+}
+
+- (NSMutableArray *)playerObservers {
+    if (!_playerObservers) {
+        _playerObservers = [[NSMutableArray alloc] init];
+    }
+    return _playerObservers;
+} 
 
 - (void)playWithURL:(NSURL *)videoURL {
     self.videoURL = videoURL;
     
     if ([self.videoURL.absoluteString hasPrefix:@"http"]) {
-        NSURL *cacheFilePath = [[GRVideoCache shareInstance] videoPathWithURL:videoURL];
-        if (cacheFilePath) {
-            NSURL *localURL = [NSURL URLWithString:[@"file://" stringByAppendingString:cacheFilePath.path]];
-            self.playerItem = [AVPlayerItem playerItemWithURL:localURL];
-        } else {
-            
-            self.resourceLoader = [[GRResourceLoader alloc] init];
-            self.resourceLoader.videoDownloadManager = [GRVideoDownloadManager shareInstance]; 
-            self.resourceLoader.delegate = self;
-            
-            AVURLAsset * asset = [AVURLAsset URLAssetWithURL:[videoURL customSchemeURL] options:nil];
-            [asset.resourceLoader setDelegate:self.resourceLoader queue:dispatch_get_main_queue()];
-            self.playerItem = [AVPlayerItem playerItemWithAsset:asset];
-        }
+        [[GRVideoDownloadManager shareInstance] addCurrentPlayingDownload:videoURL];
+        
+        self.resourceLoader = [[GRResourceLoader alloc] init];
+        self.resourceLoader.videoDownloadManager = [GRVideoDownloadManager shareInstance];
+        self.resourceLoader.delegate = self;
+        
+        AVURLAsset * asset = [AVURLAsset URLAssetWithURL:[videoURL customSchemeURL] options:nil];
+        [asset.resourceLoader setDelegate:self.resourceLoader queue:dispatch_get_main_queue()];
+        self.playerItem = [AVPlayerItem playerItemWithAsset:asset];
     } else {
         self.playerItem = [AVPlayerItem playerItemWithURL:videoURL];
     }
     
-    self.player = [AVPlayer playerWithPlayerItem:self.playerItem];
+    if (self.player) {
+        [self __removePlayerObserver]; 
+    }
+    
     [self __addObserver:self.playerItem];
+    
+    if (self.player) {
+        [self __removeObserverWithPlayerItem:self.player.currentItem];
+    }
+    
+    self.player = [AVPlayer playerWithPlayerItem:self.playerItem];
+    
+    [self __addPlayerObserver];
 }
 
 - (void)play {
@@ -76,14 +105,25 @@ static NSString * const __GRPlayerItemKeyPathTimeRanges = @"loadedTimeRanges";
 }
 
 - (void)pause {
-    [self.player pause];
+    if (self.player) {
+        if([[NSThread currentThread] isMainThread]) {
+            [self.player pause];
+        } else {
+            dispatch_sync(dispatch_get_main_queue(), ^{
+                [self.player pause];
+            });
+        }
+    }
 }
 
 - (void)stop {
+    if (!self.player) {
+        return;
+    }
+    
     [self.player pause];
-    [self __removeObserver:self.playerItem];
-    self.playerItem = nil; 
-    self.player = nil;
+    [self __removeObserverWithPlayerItem:self.player.currentItem];
+    [self __removeObserverWithPlayerItem:self.playerItem];
 }
 
 - (void)__playerDidEnd:(NSNotification *)notification {
@@ -93,24 +133,51 @@ static NSString * const __GRPlayerItemKeyPathTimeRanges = @"loadedTimeRanges";
 
 #pragma mark - observer
 
+- (void)__removePlayerObserver {
+    @try {
+        if (self.timeObserver) {
+            [self.player removeTimeObserver:self.timeObserver]; 
+        } 
+    } @catch (NSException *exception) {
+    }
+}
+
+- (void)__addPlayerObserver {
+    CMTime interval = CMTimeMake(1, 1);
+    [self.playerObservers addObject:self.player];
+    @weakify(self);
+    self.timeObserver = [self.player addPeriodicTimeObserverForInterval:interval queue:dispatch_get_main_queue() usingBlock:^(CMTime time) {
+        @strongify(self);
+        NSTimeInterval durationTime = CMTimeGetSeconds(self.playerItem.duration);
+        NSTimeInterval currentTime = CMTimeGetSeconds(self.playerItem.currentTime);
+        CGFloat process = durationTime / currentTime;
+        [self.delegate cacheVideoPlayer:self playProcess:process];
+    }];
+}
+
 - (void)__removeObserver {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 - (void)__addObserver:(AVPlayerItem *)playerItem {
+    [self.playerItemsObservers addObject:playerItem];
     [self.playerItem addObserver:self forKeyPath:__GRPlayerItemKeyPathStatus options:NSKeyValueObservingOptionNew context:nil];
-    [self.playerItem addObserver:self forKeyPath:__GRPlayerItemKeyPathTimeRanges options:NSKeyValueObservingOptionNew context:nil];
     
     [self __removeObserver];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(__playerDidEnd:) name:AVPlayerItemDidPlayToEndTimeNotification object:_playerItem];
 }
 
-- (void)__removeObserver:(AVPlayerItem *)playerItem {
+- (void)__removeObserverWithPlayerItem:(AVPlayerItem *)playerItem {
+    if (!playerItem) {
+        return; 
+    }
+    
     @try {
-        [self.playerItem removeObserver:self forKeyPath:__GRPlayerItemKeyPathStatus];
-        [self.playerItem removeObserver:self forKeyPath:__GRPlayerItemKeyPathTimeRanges];    
+        if ([self.playerItemsObservers containsObject:playerItem]) {
+            [self.playerItem removeObserver:self forKeyPath:__GRPlayerItemKeyPathStatus];
+            [self.playerItemsObservers removeObject:playerItem];
+        }
     } @catch (NSException *exception) {
-        
     }
 }
 
@@ -120,10 +187,10 @@ static NSString * const __GRPlayerItemKeyPathTimeRanges = @"loadedTimeRanges";
         if ([playerItem status] == AVPlayerStatusReadyToPlay) {
             [self.player play];
         } else if ([playerItem status] == AVPlayerStatusFailed) {
-            NSLog(@"AVPlayerStatusFailed");
+            if (self.delegate) {
+                [self.delegate cacheVideoPlayer:self playFail:YES];
+            } 
         }
-    } else if ([keyPath isEqualToString:@"loadedTimeRanges"]) {
-        
     }
 }
 

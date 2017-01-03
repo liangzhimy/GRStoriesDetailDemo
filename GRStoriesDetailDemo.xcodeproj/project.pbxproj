@@ -64,6 +64,8 @@
 		50F3239E1E14B03900941C80 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
 		50F323A01E15FB3C00941C80 /* GRVideoDownloadManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GRVideoDownloadManager.h; sourceTree = "<group>"; };
 		50F323A11E15FB3C00941C80 /* GRVideoDownloadManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GRVideoDownloadManager.m; sourceTree = "<group>"; };
+		50F323A31E1B478A00941C80 /* GRMacros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GRMacros.h; sourceTree = "<group>"; };
+		50F323A41E1B47FD00941C80 /* GRStory-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "GRStory-Prefix.pch"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -105,6 +107,8 @@
 				500407301E1109DE008CECBB /* AppDelegate.m */,
 				500407321E1109DE008CECBB /* ViewController.h */,
 				500407331E1109DE008CECBB /* ViewController.m */,
+				50F323A31E1B478A00941C80 /* GRMacros.h */,
+				50F323A41E1B47FD00941C80 /* GRStory-Prefix.pch */,
 				500407351E1109DE008CECBB /* Main.storyboard */,
 				500407381E1109DE008CECBB /* Assets.xcassets */,
 				5004073A1E1109DE008CECBB /* LaunchScreen.storyboard */,
@@ -364,6 +368,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = LR2DH4466E;
+				GCC_PREFIX_HEADER = "GRStoriesDetailDemo/GRStory-Prefix.pch";
 				INFOPLIST_FILE = GRStoriesDetailDemo/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.zl.GRStoriesDetailDemo;
@@ -376,6 +381,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = LR2DH4466E;
+				GCC_PREFIX_HEADER = "GRStoriesDetailDemo/GRStory-Prefix.pch";
 				INFOPLIST_FILE = GRStoriesDetailDemo/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.zl.GRStoriesDetailDemo;

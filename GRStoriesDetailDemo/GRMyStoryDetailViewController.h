@@ -25,6 +25,8 @@
 
 - (void)play;
 
+- (void)stop;
+
 - (void)pause; 
 
 @end

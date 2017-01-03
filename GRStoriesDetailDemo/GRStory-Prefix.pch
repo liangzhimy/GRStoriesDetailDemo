@@ -1,0 +1,15 @@
+//
+//  GRStoryDemo.pch
+//  GRStoriesDetailDemo
+//
+//  Created by liangzhimy on 17/1/3.
+//  Copyright © 2017年 liangzhimy. All rights reserved.
+//
+
+#ifndef GRStoryDemo_pch
+#define GRStoryDemo_pch
+
+// Include any system framework and library headers here that should be included in all compilation units.
+// You will also need to set the Prefix Header build setting of one or more of your targets to reference this file.
+#import "GRMacros.h"
+#endif /* GRStoryDemo_pch */

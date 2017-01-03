@@ -69,6 +69,10 @@
 
 - (void)play {
     [self.playerView playWithURL:self.story.videoURL]; 
+}
+
+- (void)stop {
+    [self.playerView stop]; 
 } 
 
 - (void)pause {

@@ -12,6 +12,7 @@
 
 @interface ViewController () <GRCubeViewControllerDelegate>
 
+@property (strong, nonatomic) NSURL *url;
 @property (strong, nonatomic) NSMutableArray<GRStory *> *datas;
 
 @end
@@ -31,7 +32,7 @@
     self.delegate = self;
     [self __configData];
     [self __configViewControllers];
-} 
+}
 
 - (void)__configData {
     NSString *path = [[NSBundle mainBundle] pathForResource:@"videos" ofType:@"txt"];
@@ -64,7 +65,7 @@
         [self addCubeSideForChildController:detailViewController];
         
         if (i == 0) { 
-            [[GRVideoDownloadManager shareInstance] addDownload:story.videoURL];
+            [[GRVideoDownloadManager shareInstance] addCurrentPlayingDownload:story.videoURL];
         } 
         
         if (i == 0) {
@@ -119,7 +120,7 @@
         myStoryViewController.view.hidden = FALSE;
         
         GRStory *story = self.datas[dataIndex];
-        [[GRVideoDownloadManager shareInstance] addDownload:story.videoURL];
+        [[GRVideoDownloadManager shareInstance] appendDownloadURL:story.videoURL];
         [myStoryViewController load:story];
     }
 } 
@@ -133,9 +134,9 @@
     GRMyStoryDetailViewController *myStoryViewController = (GRMyStoryDetailViewController *)viewController;
     for (GRMyStoryDetailViewController *detailViewController in self.childViewControllers) {
         if (detailViewController != myStoryViewController) {
-            [myStoryViewController pause];
+            [detailViewController stop];
         } else {
-            [myStoryViewController play];
+            [detailViewController play];
         }
     }
 }

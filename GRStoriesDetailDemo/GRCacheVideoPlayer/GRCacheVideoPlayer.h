@@ -18,9 +18,20 @@ typedef NS_ENUM(NSInteger, GRCacheVideoPlayerState) {
     GRCacheVideoPlayerStateError
 };
 
+@class GRCacheVideoPlayer;
+
+@protocol GRCacheVideoPlayerDelegate <NSObject>
+
+- (void)cacheVideoPlayer:(GRCacheVideoPlayer *)player playProcess:(CGFloat)process;
+- (void)cacheVideoPlayer:(GRCacheVideoPlayer *)player playFail:(BOOL)isFail; 
+
+@end
+
+
 @interface GRCacheVideoPlayer : UIView
 
-@property (nonatomic, assign) GRCacheVideoPlayerState state;
+@property (weak, nonatomic) id<GRCacheVideoPlayerDelegate> delegate;
+@property (assign, nonatomic) GRCacheVideoPlayerState state;
 
 - (void)playWithURL:(NSURL *)videoURL;
 - (void)play;

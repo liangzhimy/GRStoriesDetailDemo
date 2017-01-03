@@ -12,11 +12,7 @@
 
 + (GRVideoCache *)shareInstance; 
 
-- (NSURL *)videoPathWithURL:(NSURL *)videoURL;
-
 - (NSURL *)tmpVideoPathWithURL:(NSURL *)videoURL;
-
-- (BOOL)setVideoPath:(NSURL *)path forURL:(NSURL *)videoURL;
 
 - (NSUInteger)fileLengthForURL:(NSURL *)videoURL;
 

@@ -23,8 +23,9 @@
 
 @property (weak, nonatomic) id<GRVideoDownloadManagerDelegate> delegate;
 
-+ (instancetype)shareInstance; 
-- (void)addDownload:(NSURL *)videoURL;
++ (instancetype)shareInstance;
+- (void)addCurrentPlayingDownload:(NSURL *)videoURL;
 - (void)appendDownloadURL:(NSURL *)videoURL;
+- (void)cancelDownload:(NSURL *)videoURL; 
 
 @end

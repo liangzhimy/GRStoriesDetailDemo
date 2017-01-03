@@ -7,9 +7,9 @@
 //
 
 #import "GRVideoCache.h"
-
 static NSString * const __GRVideoCacheDirName = @"videoCache";
 static NSString * const __GRTmpVideoCacheDirName = @"tmpVideoCache";
+static NSString * const __GRFileLengthKey = @"fileLength";
 
 @implementation GRVideoCache
 
@@ -43,51 +43,44 @@ static NSString * const __GRTmpVideoCacheDirName = @"tmpVideoCache";
     }
 }
 
-- (NSString *)__videoPathWithURL:(NSURL *)videoURL {
-    NSString *fileName = [videoURL.absoluteString lastPathComponent];
-    fileName = [NSString stringWithFormat:@"%@.mp4", [[fileName componentsSeparatedByString:@"."] firstObject]];
-    NSString *videoPath = [[NSTemporaryDirectory() stringByAppendingPathComponent:__GRVideoCacheDirName] stringByAppendingPathComponent:fileName];
-//    NSLog(@"__videoPathWithURL: %@ path: %@", videoURL, videoPath);
-    return videoPath;
-}
-
-- (NSURL *)videoPathWithURL:(NSURL *)videoURL {
-    NSString *videoPath = [self __videoPathWithURL:videoURL];
-    if ([[NSFileManager defaultManager] fileExistsAtPath:videoPath]) {
-        return [NSURL URLWithString:videoPath];
-    }
-    return nil; 
-}
-
 - (NSURL *)tmpVideoPathWithURL:(NSURL *)videoURL {
     NSString *fileName = [videoURL.absoluteString lastPathComponent];
     fileName = [NSString stringWithFormat:@"%@.mp4", [[fileName componentsSeparatedByString:@"."] firstObject]];
     NSString *videoPath = [[NSTemporaryDirectory() stringByAppendingPathComponent:__GRTmpVideoCacheDirName] stringByAppendingPathComponent:fileName];
-//    NSLog(@"tmpVideoPathWithURL:%@ %@", videoURL, videoPath);
     return [NSURL URLWithString:videoPath];
 }
 
-- (BOOL)setVideoPath:(NSURL *)path forURL:(NSURL *)videoURL {
-    return FALSE; 
-//    NSURL *destinationFileURL = [NSURL URLWithString:[self __videoPathWithURL:videoURL]];
-//    NSFileManager *fileManager = [NSFileManager defaultManager];
-//    NSError *error = nil;
-//    NSLog(@"sourcePath: %@ destPath: %@", path.path, destinationFileURL.path);
-//    [fileManager moveItemAtPath:path.path toPath:destinationFileURL.path error:&error]; 
-//    NSLog(@"error : %@", error);
-//    if (error == nil) {
-//        return TRUE;
-//    }
-//    return FALSE; 
-}
+
+- (NSString *)__describeFilePathForVideoURL:(NSURL *)videoURL {
+    NSURL  *tmpVideoURL = [self tmpVideoPathWithURL:videoURL];
+    NSString *plistFilePath = [tmpVideoURL.absoluteString stringByReplacingOccurrencesOfString:@".mp4" withString:@".plist"];
+    return plistFilePath;
+} 
 
 - (void)setFileLength:(NSUInteger)fileLength forURL:(NSURL *)videoURL {
-    //TODO : for test, then replace better store 
-    [[NSUserDefaults standardUserDefaults] setObject:@(fileLength) forKey:[videoURL absoluteString]];
+    NSString *plistFilePath = [self __describeFilePathForVideoURL:videoURL];
+    
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    BOOL isPath = FALSE;
+    if (![fileManager fileExistsAtPath:plistFilePath isDirectory:&isPath]) {
+        NSDictionary *fileDescribeDict = @{__GRFileLengthKey:@(fileLength)};
+        [fileDescribeDict writeToFile:plistFilePath atomically:YES];
+        return;
+    } else {
+        NSMutableDictionary *fileDescribeDict = [NSMutableDictionary dictionaryWithContentsOfFile:plistFilePath];
+        fileDescribeDict[__GRFileLengthKey] = @(fileLength);
+        [fileDescribeDict writeToFile:plistFilePath atomically:YES];
+    }
 }
 
 - (NSUInteger)fileLengthForURL:(NSURL *)videoURL {
-    return [[[NSUserDefaults standardUserDefaults] objectForKey:[videoURL absoluteString]] unsignedIntegerValue];
-} 
+    NSString *plistFilePath = [self __describeFilePathForVideoURL:videoURL];
+    
+    NSDictionary *fileDescribeDict = [NSDictionary dictionaryWithContentsOfFile:plistFilePath];
+    if (fileDescribeDict) {
+        return [fileDescribeDict[__GRFileLengthKey] integerValue];
+    }
+    return 0; 
+}
 
 @end

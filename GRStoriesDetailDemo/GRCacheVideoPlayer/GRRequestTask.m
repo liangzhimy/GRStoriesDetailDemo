@@ -10,13 +10,15 @@
 #import "GRVideoCache.h"
 #import "GRCacheVideoFileUtility.h"
 
+static NSString * const __GRHeaderField = @"Range";
 static const NSTimeInterval __GRRequestTimeout = 10.0;
 
 @interface GRRequestTask ()<NSURLConnectionDataDelegate, NSURLSessionDataDelegate>
 
-@property (nonatomic, strong) NSURLSession * session;
-@property (nonatomic, strong) NSURLSessionDataTask * task;
+@property (strong, nonatomic) NSURLSession *session;
+@property (strong, nonatomic) NSURLSessionDataTask *task;
 @property (assign, nonatomic) BOOL isCancel;
+@property (assign, nonatomic) BOOL isSaveLength;
 
 @end
 
@@ -41,11 +43,9 @@ static const NSTimeInterval __GRRequestTimeout = 10.0;
     
     self.requestOffset = nowFileLength;
     
-    NSLog(@"requestURL %@", self.requestURL);
-    
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:self.requestURL cachePolicy:NSURLRequestReloadIgnoringCacheData timeoutInterval:__GRRequestTimeout];
     
-    [request addValue:[NSString stringWithFormat:@"bytes=%ld-", self.requestOffset] forHTTPHeaderField:@"Range"];
+    [request addValue:[NSString stringWithFormat:@"bytes=%ld-", self.requestOffset] forHTTPHeaderField:__GRHeaderField];
     self.session = [NSURLSession
                     sessionWithConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]
                     delegate:self
@@ -55,7 +55,7 @@ static const NSTimeInterval __GRRequestTimeout = 10.0;
 }
 
 - (void)cancel {
-    self.isCancel = TRUE; 
+    self.isCancel = TRUE;
 }
 
 - (void)setCancel:(BOOL)isCancel {
@@ -81,13 +81,10 @@ static const NSTimeInterval __GRRequestTimeout = 10.0;
     NSString *fileLength = [[contentRange componentsSeparatedByString:@"/"] lastObject];
     self.fileLength = fileLength.integerValue > 0 ? fileLength.integerValue : response.expectedContentLength;
     
-    if (self.fileLength > 0) { 
+    if (self.fileLength > 0 && !self.isSaveLength) {
+        self.isSaveLength = TRUE;
         [[GRVideoCache shareInstance] setFileLength:self.fileLength forURL:self.requestURL];
     } 
-    
-    if (self.delegate && [self.delegate respondsToSelector:@selector(requestTaskDidReceiveResponse)]) {
-        [self.delegate requestTaskDidReceiveResponse];
-    }
     
     if (self.delegate) {
         [self.delegate requestTask:self didReceiveResponse:response];
@@ -103,31 +100,20 @@ static const NSTimeInterval __GRRequestTimeout = 10.0;
     [GRCacheVideoFileUtility writeFileData:data filePath:tmpFilePath];
     self.cacheLength += data.length;
     
-    if (self.delegate && [self.delegate respondsToSelector:@selector(requestTaskDidUpdateCache)]) {
-        [self.delegate requestTaskDidUpdateCache];
-    }
-    
     if (self.delegate) {
         [self.delegate requestTask:self didReceiveData:data]; 
     } 
 }
 
 - (void)URLSession:(NSURLSession *)session task:(NSURLSessionTask *)task didCompleteWithError:(NSError *)error {
-    if (self.isCancel) {
-        NSLog(@"isCancel");
-    } else {
+    if (!self.isCancel) {
         if (error) {
-            if (self.delegate && [self.delegate respondsToSelector:@selector(requestTaskDidFailWithError:)]) {
-                [self.delegate requestTaskDidFailWithError:error];
-            }
+            if (self.delegate) {
+                [self.delegate requestTask:self didFailWithError:error]; 
+            } 
         } else {
-            if (self.cache) {
-                NSURL *tmpFilePath = [[GRVideoCache shareInstance] tmpVideoPathWithURL:self.requestURL];
-                [[GRVideoCache shareInstance] setVideoPath:tmpFilePath forURL:self.requestURL];
-            }
-            
-            if (self.delegate && [self.delegate respondsToSelector:@selector(requestTaskDidFinishLoadingWithCache:)]) {
-                [self.delegate requestTaskDidFinishLoadingWithCache:self.cache];
+            if (self.delegate && [self.delegate respondsToSelector:@selector(requestTask:didFinishWithSuccess:)]) {
+                [self.delegate requestTask:self didFinishWithSuccess:TRUE];
             }
         }
     }

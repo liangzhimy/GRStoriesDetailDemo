@@ -25,7 +25,6 @@
 
 @property (strong, nonatomic) GRVideoDownloadManager *videoDownloadManager; 
 @property (weak, nonatomic) id<GRResourceLoaderDelegate> delegate;
-@property (assign, nonatomic) BOOL cacheFinished;
 
 - (void)stopLoading;
 

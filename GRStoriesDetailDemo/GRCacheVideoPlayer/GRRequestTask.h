@@ -12,16 +12,10 @@
 
 @protocol GRRequestTaskDelegate <NSObject>
 @required
-- (void)requestTaskDidUpdateCache;
-
-@optional
-- (void)requestTaskDidReceiveResponse;
-- (void)requestTaskDidFinishLoadingWithCache:(BOOL)cache;
-- (void)requestTaskDidFailWithError:(NSError *)error;
-
-@required
 - (void)requestTask:(GRRequestTask *)task didReceiveResponse:(NSURLResponse *)response;
 - (void)requestTask:(GRRequestTask *)task didReceiveData:(NSData *)data;
+- (void)requestTask:(GRRequestTask *)task didFailWithError:(NSError *)error;
+- (void)requestTask:(GRRequestTask *)task didFinishWithSuccess:(BOOL)success;
 
 @end
 
