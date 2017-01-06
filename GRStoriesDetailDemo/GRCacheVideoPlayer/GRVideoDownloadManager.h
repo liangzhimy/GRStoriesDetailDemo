@@ -16,6 +16,10 @@
 
 - (void)videoDownloadManager:(GRVideoDownloadManager *)manager task:(GRRequestTask *)task didReceiveData:(NSData *)data;
 
+- (void)videoDownloadManager:(GRVideoDownloadManager *)manager task:(GRRequestTask *)task didFinishWithSuccess:(BOOL)success;
+
+- (void)videoDownloadManager:(GRVideoDownloadManager *)manager task:(GRRequestTask *)task didFailWithError:(NSError *)error;
+
 @end
 
 @interface GRVideoDownloadManager : NSObject {

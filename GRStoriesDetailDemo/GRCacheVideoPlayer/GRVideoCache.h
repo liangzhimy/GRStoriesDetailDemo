@@ -7,6 +7,8 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
+
 
 @interface GRVideoCache : NSObject
 
@@ -18,4 +20,8 @@
 
 - (void)setFileLength:(NSUInteger)fileLength forURL:(NSURL *)videoURL;
 
+//- (void)saveImage:(UIImage *)image forKey:(NSString *)key;
+//
+//- (UIImage *)imageForKey:(NSString *)key; 
+//
 @end

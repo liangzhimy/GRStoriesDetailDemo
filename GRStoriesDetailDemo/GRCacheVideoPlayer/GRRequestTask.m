@@ -56,15 +56,8 @@ static const NSTimeInterval __GRRequestTimeout = 10.0;
 
 - (void)cancel {
     self.isCancel = TRUE;
-}
-
-- (void)setCancel:(BOOL)isCancel {
-    _isCancel = isCancel;
-    
-    if (_isCancel) { 
-        [self.task cancel];
-        [self.session invalidateAndCancel];
-    } 
+    [self.task cancel];
+    [self.session invalidateAndCancel];
 }
 
 #pragma mark - NSURLSessionDataDelegate
@@ -72,8 +65,6 @@ static const NSTimeInterval __GRRequestTimeout = 10.0;
     if (self.isCancel) {
         return;
     }
-    
-    NSLog(@"=== response: %@",response);
     
     completionHandler(NSURLSessionResponseAllow);
     NSHTTPURLResponse * httpResponse = (NSHTTPURLResponse *)response;
@@ -86,7 +77,7 @@ static const NSTimeInterval __GRRequestTimeout = 10.0;
         [[GRVideoCache shareInstance] setFileLength:self.fileLength forURL:self.requestURL];
     } 
     
-    if (self.delegate) {
+    if (self.delegate && [self.delegate respondsToSelector:@selector(requestTask:didReceiveResponse:)]) {
         [self.delegate requestTask:self didReceiveResponse:response];
     } 
 }
@@ -100,7 +91,7 @@ static const NSTimeInterval __GRRequestTimeout = 10.0;
     [GRCacheVideoFileUtility writeFileData:data filePath:tmpFilePath];
     self.cacheLength += data.length;
     
-    if (self.delegate) {
+    if (self.delegate && [self.delegate respondsToSelector:@selector(requestTask:didReceiveData:)]) {
         [self.delegate requestTask:self didReceiveData:data]; 
     } 
 }
@@ -108,7 +99,7 @@ static const NSTimeInterval __GRRequestTimeout = 10.0;
 - (void)URLSession:(NSURLSession *)session task:(NSURLSessionTask *)task didCompleteWithError:(NSError *)error {
     if (!self.isCancel) {
         if (error) {
-            if (self.delegate) {
+            if (self.delegate && [self.delegate respondsToSelector:@selector(requestTask:didFailWithError:)]) {
                 [self.delegate requestTask:self didFailWithError:error]; 
             } 
         } else {

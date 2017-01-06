@@ -11,7 +11,7 @@
 #import "GRRequestTask.h"
 #import "GRCacheVideoFileUtility.h"
 
-static const NSInteger __GRMAXCacheVideoPlayerCount = 1;
+static const NSInteger __GRMAXCacheVideoPlayerCount = 3;
 
 @interface GRVideoDownloadManager () <GRRequestTaskDelegate>
 
@@ -44,7 +44,7 @@ static const NSInteger __GRMAXCacheVideoPlayerCount = 1;
     if ([self.taskDictionary objectForKey:[videoURL absoluteString]]) {
         return;
     }
-   
+    
     if ([self.tasks count] >= __GRMAXCacheVideoPlayerCount) {
         for (GRRequestTask *task in self.tasks) {
             if (!self.currentURL) {
@@ -59,10 +59,6 @@ static const NSInteger __GRMAXCacheVideoPlayerCount = 1;
         }
     }
     
-    if (self.tasks.count >= __GRMAXCacheVideoPlayerCount) {
-        return;
-    } 
-    
     NSURL *tmpFileURL = [[GRVideoCache shareInstance] tmpVideoPathWithURL:videoURL];
     [GRCacheVideoFileUtility createFilePathIfNotExist:[tmpFileURL path]];
     
@@ -74,7 +70,7 @@ static const NSInteger __GRMAXCacheVideoPlayerCount = 1;
    
     GRRequestTask *requestTask = [[GRRequestTask alloc] init];
     requestTask.requestURL = videoURL;
-    requestTask.requestOffset = 0;
+    requestTask.requestOffset = nowFileLength;
     requestTask.cache = YES;
     requestTask.delegate = self;
     [requestTask start];
@@ -106,29 +102,34 @@ static const NSInteger __GRMAXCacheVideoPlayerCount = 1;
 }
 
 - (void)__cancelDownloadWithTask:(GRRequestTask *)requestTask {
+    [requestTask cancel];
     [self.tasks removeObject:requestTask];
     [self.taskDictionary removeObjectForKey:[requestTask.requestURL absoluteString]];
-    [requestTask cancel];
 }
 
 #pragma mark - Request task delegate
 - (void)requestTask:(GRRequestTask *)task didReceiveResponse:(NSURLResponse *)response {
-    if (self.delegate) {
+    if (self.delegate && [self.delegate respondsToSelector:@selector(videoDownloadManager:task:didReceiveResponse:)]) {
         [self.delegate videoDownloadManager:self task:task didReceiveResponse:response]; 
     } 
 }
 
 - (void)requestTask:(GRRequestTask *)task didReceiveData:(NSData *)data {
-    if (self.delegate) {
+    if (self.delegate && [self.delegate respondsToSelector:@selector(videoDownloadManager:task:didReceiveData:)]) {
         [self.delegate videoDownloadManager:self task:task didReceiveData:data]; 
     } 
 }
 
 - (void)requestTask:(GRRequestTask *)task didFailWithError:(NSError *)error {
+    if (self.delegate && [self.delegate respondsToSelector:@selector(videoDownloadManager:task:didFailWithError:)]) {
+        [self.delegate videoDownloadManager:self task:task didFailWithError:error]; 
+    } 
 } 
 
 - (void)requestTask:(GRRequestTask *)task didFinishWithSuccess:(BOOL)success {
-    [self.delegate videoDownloadManager:self task:task didReceiveData:nil];
+    if (self.delegate && [self.delegate respondsToSelector:@selector(videoDownloadManager:task:didFinishWithSuccess:)]) {
+        [self.delegate videoDownloadManager:self task:task didFinishWithSuccess:success];
+    } 
 }
 
 @end

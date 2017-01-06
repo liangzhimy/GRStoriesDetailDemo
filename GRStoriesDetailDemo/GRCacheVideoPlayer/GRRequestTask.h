@@ -22,7 +22,7 @@
 @interface GRRequestTask : NSObject
 
 @property (weak, nonatomic) id<GRRequestTaskDelegate> delegate;
-@property (strong, nonatomic) NSURL * requestURL;
+@property (strong, nonatomic) NSURL *requestURL;
 @property (assign, nonatomic) NSUInteger requestOffset;
 @property (assign, nonatomic) NSUInteger fileLength;
 @property (assign, nonatomic) NSUInteger cacheLength;

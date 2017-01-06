@@ -32,10 +32,29 @@ static NSString * const __GRPlayerItemKeyPathStatus = @"status";
     return [AVPlayerLayer class];
 }
 
+- (instancetype)initWithFrame:(CGRect)frame {
+    if (self = [super initWithFrame:frame]) {
+        [self __config];
+    }
+    return self; 
+}
+
+- (instancetype)initWithCoder:(NSCoder *)aDecoder {
+    if (self = [super initWithCoder:aDecoder]) {
+        [self __config];
+    }
+    return self; 
+}
+
+- (void)__config {
+    [self __addObserver];
+} 
+
 - (void)dealloc {
     if (self.player) { 
         [self __removeObserverWithPlayerItem:self.player.currentItem];
         [self __removePlayerObserver];
+        [self __removeObserver];
     } 
 } 
 
@@ -101,7 +120,13 @@ static NSString * const __GRPlayerItemKeyPathStatus = @"status";
 }
 
 - (void)play {
-    [self.player play];
+    if([[NSThread currentThread] isMainThread]) {
+        [self.player play];
+    } else {
+        dispatch_sync(dispatch_get_main_queue(), ^{
+            [self.player play];
+        });
+    }
 }
 
 - (void)pause {
@@ -151,7 +176,9 @@ static NSString * const __GRPlayerItemKeyPathStatus = @"status";
         NSTimeInterval durationTime = CMTimeGetSeconds(self.playerItem.duration);
         NSTimeInterval currentTime = CMTimeGetSeconds(self.playerItem.currentTime);
         CGFloat process = durationTime / currentTime;
-        [self.delegate cacheVideoPlayer:self playProcess:process];
+        if (self.delegate && [self.delegate respondsToSelector:@selector(cacheVideoPlayer:playProcess:)]) {
+            [self.delegate cacheVideoPlayer:self playProcess:process];
+        } 
     }];
 }
 
@@ -187,7 +214,7 @@ static NSString * const __GRPlayerItemKeyPathStatus = @"status";
         if ([playerItem status] == AVPlayerStatusReadyToPlay) {
             [self.player play];
         } else if ([playerItem status] == AVPlayerStatusFailed) {
-            if (self.delegate) {
+            if (self.delegate && [self.delegate respondsToSelector:@selector(cacheVideoPlayer:playFail:)]) {
                 [self.delegate cacheVideoPlayer:self playFail:YES];
             } 
         }
@@ -200,6 +227,29 @@ static NSString * const __GRPlayerItemKeyPathStatus = @"status";
 }
 
 - (void)loader:(GRResourceLoader *)loader failLoadingWithError:(NSError *)error {
+}
+
+#pragma mark - enter back ground 
+
+- (void)__addObserver {
+    [self __addWillResignActiveNotification];
+    [self __addDidResumeFromBackgroundNotification];
+} 
+
+- (void)__addWillResignActiveNotification {
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(willEnterBackground:) name:UIApplicationWillResignActiveNotification object:nil];
+}
+
+- (void)__addDidResumeFromBackgroundNotification {
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didResumeFromBackground:) name:UIApplicationDidBecomeActiveNotification object:nil];
+}
+
+- (void)willEnterBackground:(NSNotification *)note {
+//    [self pause];
+}
+
+- (void)didResumeFromBackground:(NSNotification *)note {
+//    [self play];
 }
 
 @end

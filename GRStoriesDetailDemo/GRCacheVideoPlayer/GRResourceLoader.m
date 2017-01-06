@@ -14,12 +14,14 @@
 #import "NSURL+CacheVideoPlayer.h"
 #import "GRVideoDownloadManager.h"
 
-static NSString * __GRMimeType = @"video/mp4";
+static NSString * const __GRMimeType = @"video/mp4";
+static NSString * const __GRContentLenghtKey = @"__GRContentLength";
 
 @interface GRResourceLoader () <GRVideoDownloadManagerDelegate>
 
 @property (strong, nonatomic) NSMutableArray *requestList;
 @property (strong, nonatomic) NSURL *requestURL;
+@property (strong, nonatomic) NSMutableDictionary *contentLegthCache;
 
 @end
 
@@ -30,7 +32,27 @@ static NSString * __GRMimeType = @"video/mp4";
         self.requestList = [NSMutableArray array];
     }
     return self; 
-} 
+}
+
+- (NSMutableDictionary *)contentLegthCache {
+    if (!_contentLegthCache) {
+        _contentLegthCache = [[NSMutableDictionary alloc] init];
+    }
+    return _contentLegthCache;
+}
+
+- (NSUInteger)contentLengthWithURL:(NSURL *)videoURL {
+    NSString *key = videoURL.absoluteString;
+    if (self.contentLegthCache[key]) {
+        return [self.contentLegthCache[key] integerValue];
+    }
+    return 0;
+}
+
+- (void)setContentLength:(NSUInteger)contentLength forURL:(NSURL *)videoURL {
+    NSString *key = videoURL.absoluteString;
+    self.contentLegthCache[key] = @(contentLength);
+}
 
 - (void)stopLoading {
     if (self.requestURL) {
@@ -86,7 +108,14 @@ static NSString * __GRMimeType = @"video/mp4";
     CFStringRef contentType = UTTypeCreatePreferredIdentifierForTag(kUTTagClassMIMEType, (__bridge CFStringRef)(__GRMimeType), NULL);
     loadingRequest.contentInformationRequest.contentType = CFBridgingRelease(contentType);
     loadingRequest.contentInformationRequest.byteRangeAccessSupported = YES;
-    NSUInteger contentLength = [[GRVideoCache shareInstance] fileLengthForURL:[loadingRequest.request.URL originalSchemeURL]];
+    
+    NSURL *requestURL = [loadingRequest.request.URL originalSchemeURL];
+    NSUInteger contentLength = [self contentLengthWithURL:requestURL];
+    if (contentLength <= 0) {
+        contentLength = [[GRVideoCache shareInstance] fileLengthForURL:[loadingRequest.request.URL originalSchemeURL]];
+        [self setContentLength:contentLength forURL:requestURL];
+    }
+    
     loadingRequest.contentInformationRequest.contentLength = contentLength;
     
     NSUInteger cacheLength = localCacheLength;
@@ -129,6 +158,18 @@ static NSString * __GRMimeType = @"video/mp4";
     if ([task.requestURL.absoluteString isEqualToString:self.requestURL.absoluteString]) {
         [self __processRequestList];
     } 
+}
+
+- (void)videoDownloadManager:(GRVideoDownloadManager *)manager task:(GRRequestTask *)task didFinishWithSuccess:(BOOL)success {
+    if ([task.requestURL.absoluteString isEqualToString:self.requestURL.absoluteString]) {
+        [self __processRequestList];
+    }
+}
+
+- (void)videoDownloadManager:(GRVideoDownloadManager *)manager task:(GRRequestTask *)task didFailWithError:(NSError *)error {
+    if ([task.requestURL.absoluteString isEqualToString:self.requestURL.absoluteString]) {
+    
+    }
 }
 
 @end

@@ -7,9 +7,20 @@
 //
 
 #import "GRVideoCache.h"
+#import "GRVideoCacheProtocol.h"
+#import "GRNormalVideoCache.h"
+#import <SDWebImage/SDWebImageManager.h>
+#import <SDWebImage/SDImageCache.h>
+
 static NSString * const __GRVideoCacheDirName = @"videoCache";
 static NSString * const __GRTmpVideoCacheDirName = @"tmpVideoCache";
 static NSString * const __GRFileLengthKey = @"fileLength";
+
+@interface GRVideoCache ()
+
+@property (strong, nonatomic) id <GRVideoCacheProtocol> videoCache;
+
+@end
 
 @implementation GRVideoCache
 
@@ -24,63 +35,30 @@ static NSString * const __GRFileLengthKey = @"fileLength";
 
 - (instancetype)init {
     if (self = [super init]) {
-        [self __createDirectory]; 
+        _videoCache = [[GRNormalVideoCache alloc] init];
     }
     return self;
 }
 
-- (void)__createDirectory {
-    NSString *videoDir = [NSTemporaryDirectory() stringByAppendingPathComponent:__GRVideoCacheDirName];
-    NSFileManager *fileManager = [NSFileManager defaultManager];
-    if (![fileManager fileExistsAtPath:videoDir]) {
-        [fileManager createDirectoryAtPath:videoDir withIntermediateDirectories:YES attributes:nil error:nil];
-    }
-    
-    NSString *tmpDir = [NSTemporaryDirectory() stringByAppendingPathComponent:__GRTmpVideoCacheDirName];
-    
-    if (![fileManager fileExistsAtPath:tmpDir]) {
-        [fileManager createDirectoryAtPath:tmpDir withIntermediateDirectories:YES attributes:nil error:nil];
-    }
-}
-
 - (NSURL *)tmpVideoPathWithURL:(NSURL *)videoURL {
-    NSString *fileName = [videoURL.absoluteString lastPathComponent];
-    fileName = [NSString stringWithFormat:@"%@.mp4", [[fileName componentsSeparatedByString:@"."] firstObject]];
-    NSString *videoPath = [[NSTemporaryDirectory() stringByAppendingPathComponent:__GRTmpVideoCacheDirName] stringByAppendingPathComponent:fileName];
-    return [NSURL URLWithString:videoPath];
+    return [self.videoCache tmpVideoPathWithURL:videoURL];
 }
-
-
-- (NSString *)__describeFilePathForVideoURL:(NSURL *)videoURL {
-    NSURL  *tmpVideoURL = [self tmpVideoPathWithURL:videoURL];
-    NSString *plistFilePath = [tmpVideoURL.absoluteString stringByReplacingOccurrencesOfString:@".mp4" withString:@".plist"];
-    return plistFilePath;
-} 
 
 - (void)setFileLength:(NSUInteger)fileLength forURL:(NSURL *)videoURL {
-    NSString *plistFilePath = [self __describeFilePathForVideoURL:videoURL];
-    
-    NSFileManager *fileManager = [NSFileManager defaultManager];
-    BOOL isPath = FALSE;
-    if (![fileManager fileExistsAtPath:plistFilePath isDirectory:&isPath]) {
-        NSDictionary *fileDescribeDict = @{__GRFileLengthKey:@(fileLength)};
-        [fileDescribeDict writeToFile:plistFilePath atomically:YES];
-        return;
-    } else {
-        NSMutableDictionary *fileDescribeDict = [NSMutableDictionary dictionaryWithContentsOfFile:plistFilePath];
-        fileDescribeDict[__GRFileLengthKey] = @(fileLength);
-        [fileDescribeDict writeToFile:plistFilePath atomically:YES];
-    }
+    [self.videoCache setFileLength:fileLength forURL:videoURL];
 }
 
 - (NSUInteger)fileLengthForURL:(NSURL *)videoURL {
-    NSString *plistFilePath = [self __describeFilePathForVideoURL:videoURL];
-    
-    NSDictionary *fileDescribeDict = [NSDictionary dictionaryWithContentsOfFile:plistFilePath];
-    if (fileDescribeDict) {
-        return [fileDescribeDict[__GRFileLengthKey] integerValue];
-    }
-    return 0; 
+    return [self.videoCache fileLengthForURL:videoURL];
 }
+
+//- (void)saveImage:(UIImage *)image forKey:(NSURL *)imageURL {
+//    SDImageCache *imageCache = [SDImageCache sharedImageCache];
+//    NSString *key = [[SDWebImageManager sharedManager] cacheKeyForURL:imageURL];
+//    [[SDImageCache sharedImageCache] storeImage:image forKey:key]; 
+//}
+//
+//- (UIImage *)imageForKey:(NSString *)key {
+//}
 
 @end

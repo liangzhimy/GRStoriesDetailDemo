@@ -19,6 +19,14 @@
 		5004074E1E1240B2008CECBB /* GRStoryPlayerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5004074D1E1240B2008CECBB /* GRStoryPlayerView.m */; };
 		500407501E12414A008CECBB /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5004074F1E12414A008CECBB /* AVFoundation.framework */; };
 		500407541E124A9F008CECBB /* videos.txt in Resources */ = {isa = PBXBuildFile; fileRef = 500407531E124A9F008CECBB /* videos.txt */; };
+		504E857F1E1F8A12003B1EFF /* GRStoryImageDownloadOpration.m in Sources */ = {isa = PBXBuildFile; fileRef = 504E857E1E1F8A12003B1EFF /* GRStoryImageDownloadOpration.m */; };
+		509756BE1E1C9B7100533B33 /* GRStoryImageDownload.m in Sources */ = {isa = PBXBuildFile; fileRef = 509756BD1E1C9B7100533B33 /* GRStoryImageDownload.m */; };
+		509756C11E1C9E1B00533B33 /* GRNormalVideoCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 509756C01E1C9E1B00533B33 /* GRNormalVideoCache.m */; };
+		509756C71E1CC5B300533B33 /* NSString+Md5.m in Sources */ = {isa = PBXBuildFile; fileRef = 509756C61E1CC5B300533B33 /* NSString+Md5.m */; };
+		50EA68FA1E1F48060095AEC4 /* GRStoryMediaDownloadManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 50EA68F91E1F48060095AEC4 /* GRStoryMediaDownloadManager.m */; };
+		50EA68FD1E1F6FA90095AEC4 /* GRStoryMediaDownloadOpration.m in Sources */ = {isa = PBXBuildFile; fileRef = 50EA68FC1E1F6FA90095AEC4 /* GRStoryMediaDownloadOpration.m */; };
+		50EA69031E1F79EB0095AEC4 /* GRStoryDownloadVideoTask.m in Sources */ = {isa = PBXBuildFile; fileRef = 50EA69021E1F79EB0095AEC4 /* GRStoryDownloadVideoTask.m */; };
+		50EA69061E1F7BA50095AEC4 /* GRStoryVideoDownloadOpration.m in Sources */ = {isa = PBXBuildFile; fileRef = 50EA69051E1F7BA50095AEC4 /* GRStoryVideoDownloadOpration.m */; };
 		50F323781E13C3CB00941C80 /* GRCacheVideoPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 50F323771E13C3CB00941C80 /* GRCacheVideoPlayer.m */; };
 		50F3237C1E13C65500941C80 /* NSURL+CacheVideoPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 50F3237B1E13C65500941C80 /* NSURL+CacheVideoPlayer.m */; };
 		50F323941E13C92400941C80 /* GRCacheVideoFileUtility.m in Sources */ = {isa = PBXBuildFile; fileRef = 50F323931E13C92400941C80 /* GRCacheVideoFileUtility.m */; };
@@ -27,9 +35,11 @@
 		50F3239D1E13CDC000941C80 /* GRRequestTask.m in Sources */ = {isa = PBXBuildFile; fileRef = 50F3239C1E13CDC000941C80 /* GRRequestTask.m */; };
 		50F3239F1E14B03900941C80 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 50F3239E1E14B03900941C80 /* MobileCoreServices.framework */; };
 		50F323A21E15FB3C00941C80 /* GRVideoDownloadManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 50F323A11E15FB3C00941C80 /* GRVideoDownloadManager.m */; };
+		C462A93343574FBD46C098A0 /* libPods-GRStoriesDetailDemo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 09103888FC2AA884C4E97D2D /* libPods-GRStoriesDetailDemo.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		09103888FC2AA884C4E97D2D /* libPods-GRStoriesDetailDemo.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-GRStoriesDetailDemo.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		500407291E1109DE008CECBB /* GRStoriesDetailDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GRStoriesDetailDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5004072D1E1109DE008CECBB /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		5004072F1E1109DE008CECBB /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -49,6 +59,24 @@
 		5004074D1E1240B2008CECBB /* GRStoryPlayerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GRStoryPlayerView.m; sourceTree = "<group>"; };
 		5004074F1E12414A008CECBB /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		500407531E124A9F008CECBB /* videos.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = videos.txt; sourceTree = "<group>"; };
+		504E857D1E1F8A12003B1EFF /* GRStoryImageDownloadOpration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GRStoryImageDownloadOpration.h; sourceTree = "<group>"; };
+		504E857E1E1F8A12003B1EFF /* GRStoryImageDownloadOpration.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GRStoryImageDownloadOpration.m; sourceTree = "<group>"; };
+		509756BC1E1C9B7100533B33 /* GRStoryImageDownload.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GRStoryImageDownload.h; sourceTree = "<group>"; };
+		509756BD1E1C9B7100533B33 /* GRStoryImageDownload.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GRStoryImageDownload.m; sourceTree = "<group>"; };
+		509756BF1E1C9E1B00533B33 /* GRNormalVideoCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GRNormalVideoCache.h; sourceTree = "<group>"; };
+		509756C01E1C9E1B00533B33 /* GRNormalVideoCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GRNormalVideoCache.m; sourceTree = "<group>"; };
+		509756C21E1C9EDA00533B33 /* GRVideoCacheProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GRVideoCacheProtocol.h; sourceTree = "<group>"; };
+		509756C51E1CC5B300533B33 /* NSString+Md5.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Md5.h"; sourceTree = "<group>"; };
+		509756C61E1CC5B300533B33 /* NSString+Md5.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Md5.m"; sourceTree = "<group>"; };
+		50EA68F81E1F48060095AEC4 /* GRStoryMediaDownloadManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GRStoryMediaDownloadManager.h; sourceTree = "<group>"; };
+		50EA68F91E1F48060095AEC4 /* GRStoryMediaDownloadManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GRStoryMediaDownloadManager.m; sourceTree = "<group>"; };
+		50EA68FB1E1F6FA90095AEC4 /* GRStoryMediaDownloadOpration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GRStoryMediaDownloadOpration.h; sourceTree = "<group>"; };
+		50EA68FC1E1F6FA90095AEC4 /* GRStoryMediaDownloadOpration.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GRStoryMediaDownloadOpration.m; sourceTree = "<group>"; };
+		50EA68FE1E1F72E80095AEC4 /* GRStoryMediaType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GRStoryMediaType.h; sourceTree = "<group>"; };
+		50EA69011E1F79EB0095AEC4 /* GRStoryDownloadVideoTask.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GRStoryDownloadVideoTask.h; sourceTree = "<group>"; };
+		50EA69021E1F79EB0095AEC4 /* GRStoryDownloadVideoTask.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GRStoryDownloadVideoTask.m; sourceTree = "<group>"; };
+		50EA69041E1F7BA50095AEC4 /* GRStoryVideoDownloadOpration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GRStoryVideoDownloadOpration.h; sourceTree = "<group>"; };
+		50EA69051E1F7BA50095AEC4 /* GRStoryVideoDownloadOpration.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GRStoryVideoDownloadOpration.m; sourceTree = "<group>"; };
 		50F323761E13C3CB00941C80 /* GRCacheVideoPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GRCacheVideoPlayer.h; sourceTree = "<group>"; };
 		50F323771E13C3CB00941C80 /* GRCacheVideoPlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GRCacheVideoPlayer.m; sourceTree = "<group>"; };
 		50F3237A1E13C65500941C80 /* NSURL+CacheVideoPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSURL+CacheVideoPlayer.h"; sourceTree = "<group>"; };
@@ -66,6 +94,8 @@
 		50F323A11E15FB3C00941C80 /* GRVideoDownloadManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GRVideoDownloadManager.m; sourceTree = "<group>"; };
 		50F323A31E1B478A00941C80 /* GRMacros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GRMacros.h; sourceTree = "<group>"; };
 		50F323A41E1B47FD00941C80 /* GRStory-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "GRStory-Prefix.pch"; sourceTree = "<group>"; };
+		5D38F82FB9940FC1E1FCABC3 /* Pods-GRStoriesDetailDemo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GRStoriesDetailDemo.debug.xcconfig"; path = "Pods/Target Support Files/Pods-GRStoriesDetailDemo/Pods-GRStoriesDetailDemo.debug.xcconfig"; sourceTree = "<group>"; };
+		666830EB4FE932A6462985B3 /* Pods-GRStoriesDetailDemo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GRStoriesDetailDemo.release.xcconfig"; path = "Pods/Target Support Files/Pods-GRStoriesDetailDemo/Pods-GRStoriesDetailDemo.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -76,6 +106,7 @@
 				50F3239F1E14B03900941C80 /* MobileCoreServices.framework in Frameworks */,
 				500407501E12414A008CECBB /* AVFoundation.framework in Frameworks */,
 				500407481E110B6B008CECBB /* QuartzCore.framework in Frameworks */,
+				C462A93343574FBD46C098A0 /* libPods-GRStoriesDetailDemo.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -88,6 +119,7 @@
 				5004072B1E1109DE008CECBB /* GRStoriesDetailDemo */,
 				5004072A1E1109DE008CECBB /* Products */,
 				500407461E110B6B008CECBB /* Frameworks */,
+				BD84EDCE12D7F67ECFF18628 /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -103,6 +135,8 @@
 			isa = PBXGroup;
 			children = (
 				50F323351E13AF8B00941C80 /* GRCacheVideoPlayer */,
+				509756BC1E1C9B7100533B33 /* GRStoryImageDownload.h */,
+				509756BD1E1C9B7100533B33 /* GRStoryImageDownload.m */,
 				5004072F1E1109DE008CECBB /* AppDelegate.h */,
 				500407301E1109DE008CECBB /* AppDelegate.m */,
 				500407321E1109DE008CECBB /* ViewController.h */,
@@ -139,6 +173,7 @@
 				50F3239E1E14B03900941C80 /* MobileCoreServices.framework */,
 				5004074F1E12414A008CECBB /* AVFoundation.framework */,
 				500407471E110B6B008CECBB /* QuartzCore.framework */,
+				09103888FC2AA884C4E97D2D /* libPods-GRStoriesDetailDemo.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -154,14 +189,39 @@
 				50F323931E13C92400941C80 /* GRCacheVideoFileUtility.m */,
 				50F323951E13C96000941C80 /* GRVideoCache.h */,
 				50F323961E13C96000941C80 /* GRVideoCache.m */,
+				509756C21E1C9EDA00533B33 /* GRVideoCacheProtocol.h */,
+				509756BF1E1C9E1B00533B33 /* GRNormalVideoCache.h */,
+				509756C01E1C9E1B00533B33 /* GRNormalVideoCache.m */,
 				50F323981E13CC4E00941C80 /* GRResourceLoader.h */,
 				50F323991E13CC4E00941C80 /* GRResourceLoader.m */,
 				50F3239B1E13CDC000941C80 /* GRRequestTask.h */,
 				50F3239C1E13CDC000941C80 /* GRRequestTask.m */,
 				50F323A01E15FB3C00941C80 /* GRVideoDownloadManager.h */,
 				50F323A11E15FB3C00941C80 /* GRVideoDownloadManager.m */,
+				509756C51E1CC5B300533B33 /* NSString+Md5.h */,
+				509756C61E1CC5B300533B33 /* NSString+Md5.m */,
+				50EA68F81E1F48060095AEC4 /* GRStoryMediaDownloadManager.h */,
+				50EA68F91E1F48060095AEC4 /* GRStoryMediaDownloadManager.m */,
+				50EA68FB1E1F6FA90095AEC4 /* GRStoryMediaDownloadOpration.h */,
+				50EA68FC1E1F6FA90095AEC4 /* GRStoryMediaDownloadOpration.m */,
+				50EA69041E1F7BA50095AEC4 /* GRStoryVideoDownloadOpration.h */,
+				50EA69051E1F7BA50095AEC4 /* GRStoryVideoDownloadOpration.m */,
+				504E857D1E1F8A12003B1EFF /* GRStoryImageDownloadOpration.h */,
+				504E857E1E1F8A12003B1EFF /* GRStoryImageDownloadOpration.m */,
+				50EA69011E1F79EB0095AEC4 /* GRStoryDownloadVideoTask.h */,
+				50EA69021E1F79EB0095AEC4 /* GRStoryDownloadVideoTask.m */,
+				50EA68FE1E1F72E80095AEC4 /* GRStoryMediaType.h */,
 			);
 			path = GRCacheVideoPlayer;
+			sourceTree = "<group>";
+		};
+		BD84EDCE12D7F67ECFF18628 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				5D38F82FB9940FC1E1FCABC3 /* Pods-GRStoriesDetailDemo.debug.xcconfig */,
+				666830EB4FE932A6462985B3 /* Pods-GRStoriesDetailDemo.release.xcconfig */,
+			);
+			name = Pods;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -171,9 +231,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 500407401E1109DE008CECBB /* Build configuration list for PBXNativeTarget "GRStoriesDetailDemo" */;
 			buildPhases = (
+				BB381B96A5AF8F6B8C04E9DE /* [CP] Check Pods Manifest.lock */,
 				500407251E1109DE008CECBB /* Sources */,
 				500407261E1109DE008CECBB /* Frameworks */,
 				500407271E1109DE008CECBB /* Resources */,
+				DDD0F563B2730A133EF24E9D /* [CP] Embed Pods Frameworks */,
+				3B20C04865E8F4AAE99BA7CE /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -232,22 +295,78 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		3B20C04865E8F4AAE99BA7CE /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-GRStoriesDetailDemo/Pods-GRStoriesDetailDemo-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		BB381B96A5AF8F6B8C04E9DE /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		DDD0F563B2730A133EF24E9D /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-GRStoriesDetailDemo/Pods-GRStoriesDetailDemo-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		500407251E1109DE008CECBB /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				50EA68FA1E1F48060095AEC4 /* GRStoryMediaDownloadManager.m in Sources */,
 				50F3239A1E13CC4E00941C80 /* GRResourceLoader.m in Sources */,
 				5004074B1E110E58008CECBB /* GRMyStoryDetailViewController.m in Sources */,
+				509756C71E1CC5B300533B33 /* NSString+Md5.m in Sources */,
+				509756C11E1C9E1B00533B33 /* GRNormalVideoCache.m in Sources */,
 				50F323A21E15FB3C00941C80 /* GRVideoDownloadManager.m in Sources */,
 				50F323781E13C3CB00941C80 /* GRCacheVideoPlayer.m in Sources */,
+				504E857F1E1F8A12003B1EFF /* GRStoryImageDownloadOpration.m in Sources */,
+				50EA69031E1F79EB0095AEC4 /* GRStoryDownloadVideoTask.m in Sources */,
 				500407451E1109FD008CECBB /* GRCubeViewController.m in Sources */,
 				5004074E1E1240B2008CECBB /* GRStoryPlayerView.m in Sources */,
 				50F3237C1E13C65500941C80 /* NSURL+CacheVideoPlayer.m in Sources */,
 				500407341E1109DE008CECBB /* ViewController.m in Sources */,
+				509756BE1E1C9B7100533B33 /* GRStoryImageDownload.m in Sources */,
 				50F3239D1E13CDC000941C80 /* GRRequestTask.m in Sources */,
+				50EA69061E1F7BA50095AEC4 /* GRStoryVideoDownloadOpration.m in Sources */,
 				50F323941E13C92400941C80 /* GRCacheVideoFileUtility.m in Sources */,
 				500407311E1109DE008CECBB /* AppDelegate.m in Sources */,
+				50EA68FD1E1F6FA90095AEC4 /* GRStoryMediaDownloadOpration.m in Sources */,
 				50F323971E13C96000941C80 /* GRVideoCache.m in Sources */,
 				5004072E1E1109DE008CECBB /* main.m in Sources */,
 			);
@@ -365,11 +484,13 @@
 		};
 		500407411E1109DE008CECBB /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 5D38F82FB9940FC1E1FCABC3 /* Pods-GRStoriesDetailDemo.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = LR2DH4466E;
 				GCC_PREFIX_HEADER = "GRStoriesDetailDemo/GRStory-Prefix.pch";
 				INFOPLIST_FILE = GRStoriesDetailDemo/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.zl.GRStoriesDetailDemo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -378,11 +499,13 @@
 		};
 		500407421E1109DE008CECBB /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 666830EB4FE932A6462985B3 /* Pods-GRStoriesDetailDemo.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = LR2DH4466E;
 				GCC_PREFIX_HEADER = "GRStoriesDetailDemo/GRStory-Prefix.pch";
 				INFOPLIST_FILE = GRStoriesDetailDemo/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.zl.GRStoriesDetailDemo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
