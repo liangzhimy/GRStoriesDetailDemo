@@ -16,10 +16,19 @@
 		500407451E1109FD008CECBB /* GRCubeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 500407441E1109FD008CECBB /* GRCubeViewController.m */; };
 		500407481E110B6B008CECBB /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 500407471E110B6B008CECBB /* QuartzCore.framework */; };
 		5004074B1E110E58008CECBB /* GRMyStoryDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5004074A1E110E58008CECBB /* GRMyStoryDetailViewController.m */; };
-		5004074E1E1240B2008CECBB /* GRStoryPlayerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5004074D1E1240B2008CECBB /* GRStoryPlayerView.m */; };
 		500407501E12414A008CECBB /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5004074F1E12414A008CECBB /* AVFoundation.framework */; };
 		500407541E124A9F008CECBB /* videos.txt in Resources */ = {isa = PBXBuildFile; fileRef = 500407531E124A9F008CECBB /* videos.txt */; };
 		504E857F1E1F8A12003B1EFF /* GRStoryImageDownloadOpration.m in Sources */ = {isa = PBXBuildFile; fileRef = 504E857E1E1F8A12003B1EFF /* GRStoryImageDownloadOpration.m */; };
+		50663B961E2482DB0081FF77 /* GRPanableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 50663B8F1E2482DB0081FF77 /* GRPanableView.m */; };
+		50663B971E2482DB0081FF77 /* GRPanableView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 50663B901E2482DB0081FF77 /* GRPanableView.xib */; };
+		50663B981E2482DB0081FF77 /* GRStoryPanableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 50663B921E2482DB0081FF77 /* GRStoryPanableView.m */; };
+		50663B991E2482DB0081FF77 /* GRStoryViewCountView.m in Sources */ = {isa = PBXBuildFile; fileRef = 50663B941E2482DB0081FF77 /* GRStoryViewCountView.m */; };
+		50663B9A1E2482DB0081FF77 /* GRStoryViewCountView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 50663B951E2482DB0081FF77 /* GRStoryViewCountView.xib */; };
+		50663BF31E24E1450081FF77 /* GRStoryPlayProcessGroupView.m in Sources */ = {isa = PBXBuildFile; fileRef = 50663BF01E24E1450081FF77 /* GRStoryPlayProcessGroupView.m */; };
+		50663BF41E24E1450081FF77 /* GRStoryPlayProcessView.m in Sources */ = {isa = PBXBuildFile; fileRef = 50663BF21E24E1450081FF77 /* GRStoryPlayProcessView.m */; };
+		50663BF71E24E4850081FF77 /* GRStoryLeftRightTouchView.m in Sources */ = {isa = PBXBuildFile; fileRef = 50663BF61E24E4850081FF77 /* GRStoryLeftRightTouchView.m */; };
+		50663BFB1E2509050081FF77 /* GRImagePlayerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 50663BFA1E2509050081FF77 /* GRImagePlayerView.m */; };
+		50663BFE1E2509330081FF77 /* GRStoryPlayerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 50663BFD1E2509330081FF77 /* GRStoryPlayerView.m */; };
 		509756BE1E1C9B7100533B33 /* GRStoryImageDownload.m in Sources */ = {isa = PBXBuildFile; fileRef = 509756BD1E1C9B7100533B33 /* GRStoryImageDownload.m */; };
 		509756C11E1C9E1B00533B33 /* GRNormalVideoCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 509756C01E1C9E1B00533B33 /* GRNormalVideoCache.m */; };
 		509756C71E1CC5B300533B33 /* NSString+Md5.m in Sources */ = {isa = PBXBuildFile; fileRef = 509756C61E1CC5B300533B33 /* NSString+Md5.m */; };
@@ -55,12 +64,28 @@
 		500407471E110B6B008CECBB /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		500407491E110E58008CECBB /* GRMyStoryDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GRMyStoryDetailViewController.h; sourceTree = "<group>"; };
 		5004074A1E110E58008CECBB /* GRMyStoryDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GRMyStoryDetailViewController.m; sourceTree = "<group>"; };
-		5004074C1E1240B2008CECBB /* GRStoryPlayerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GRStoryPlayerView.h; sourceTree = "<group>"; };
-		5004074D1E1240B2008CECBB /* GRStoryPlayerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GRStoryPlayerView.m; sourceTree = "<group>"; };
 		5004074F1E12414A008CECBB /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		500407531E124A9F008CECBB /* videos.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = videos.txt; sourceTree = "<group>"; };
 		504E857D1E1F8A12003B1EFF /* GRStoryImageDownloadOpration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GRStoryImageDownloadOpration.h; sourceTree = "<group>"; };
 		504E857E1E1F8A12003B1EFF /* GRStoryImageDownloadOpration.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GRStoryImageDownloadOpration.m; sourceTree = "<group>"; };
+		50663B8E1E2482DB0081FF77 /* GRPanableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GRPanableView.h; sourceTree = "<group>"; };
+		50663B8F1E2482DB0081FF77 /* GRPanableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GRPanableView.m; sourceTree = "<group>"; };
+		50663B901E2482DB0081FF77 /* GRPanableView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GRPanableView.xib; sourceTree = "<group>"; };
+		50663B911E2482DB0081FF77 /* GRStoryPanableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GRStoryPanableView.h; sourceTree = "<group>"; };
+		50663B921E2482DB0081FF77 /* GRStoryPanableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GRStoryPanableView.m; sourceTree = "<group>"; };
+		50663B931E2482DB0081FF77 /* GRStoryViewCountView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GRStoryViewCountView.h; sourceTree = "<group>"; };
+		50663B941E2482DB0081FF77 /* GRStoryViewCountView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GRStoryViewCountView.m; sourceTree = "<group>"; };
+		50663B951E2482DB0081FF77 /* GRStoryViewCountView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GRStoryViewCountView.xib; sourceTree = "<group>"; };
+		50663BEF1E24E1450081FF77 /* GRStoryPlayProcessGroupView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GRStoryPlayProcessGroupView.h; sourceTree = "<group>"; };
+		50663BF01E24E1450081FF77 /* GRStoryPlayProcessGroupView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GRStoryPlayProcessGroupView.m; sourceTree = "<group>"; };
+		50663BF11E24E1450081FF77 /* GRStoryPlayProcessView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GRStoryPlayProcessView.h; sourceTree = "<group>"; };
+		50663BF21E24E1450081FF77 /* GRStoryPlayProcessView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GRStoryPlayProcessView.m; sourceTree = "<group>"; };
+		50663BF51E24E4850081FF77 /* GRStoryLeftRightTouchView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GRStoryLeftRightTouchView.h; sourceTree = "<group>"; };
+		50663BF61E24E4850081FF77 /* GRStoryLeftRightTouchView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GRStoryLeftRightTouchView.m; sourceTree = "<group>"; };
+		50663BF91E2509050081FF77 /* GRImagePlayerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GRImagePlayerView.h; sourceTree = "<group>"; };
+		50663BFA1E2509050081FF77 /* GRImagePlayerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GRImagePlayerView.m; sourceTree = "<group>"; };
+		50663BFC1E2509330081FF77 /* GRStoryPlayerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GRStoryPlayerView.h; sourceTree = "<group>"; };
+		50663BFD1E2509330081FF77 /* GRStoryPlayerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GRStoryPlayerView.m; sourceTree = "<group>"; };
 		509756BC1E1C9B7100533B33 /* GRStoryImageDownload.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GRStoryImageDownload.h; sourceTree = "<group>"; };
 		509756BD1E1C9B7100533B33 /* GRStoryImageDownload.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GRStoryImageDownload.m; sourceTree = "<group>"; };
 		509756BF1E1C9E1B00533B33 /* GRNormalVideoCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GRNormalVideoCache.h; sourceTree = "<group>"; };
@@ -134,11 +159,16 @@
 		5004072B1E1109DE008CECBB /* GRStoriesDetailDemo */ = {
 			isa = PBXGroup;
 			children = (
+				50663BF81E2508FB0081FF77 /* GRImagePlayerView */,
+				50663B8D1E2482DB0081FF77 /* GRPanableView */,
 				50F323351E13AF8B00941C80 /* GRCacheVideoPlayer */,
 				509756BC1E1C9B7100533B33 /* GRStoryImageDownload.h */,
 				509756BD1E1C9B7100533B33 /* GRStoryImageDownload.m */,
+				50663BEE1E24E1450081FF77 /* StoryPlayProcessGroupView */,
 				5004072F1E1109DE008CECBB /* AppDelegate.h */,
 				500407301E1109DE008CECBB /* AppDelegate.m */,
+				50663BF51E24E4850081FF77 /* GRStoryLeftRightTouchView.h */,
+				50663BF61E24E4850081FF77 /* GRStoryLeftRightTouchView.m */,
 				500407321E1109DE008CECBB /* ViewController.h */,
 				500407331E1109DE008CECBB /* ViewController.m */,
 				50F323A31E1B478A00941C80 /* GRMacros.h */,
@@ -152,8 +182,6 @@
 				500407441E1109FD008CECBB /* GRCubeViewController.m */,
 				500407491E110E58008CECBB /* GRMyStoryDetailViewController.h */,
 				5004074A1E110E58008CECBB /* GRMyStoryDetailViewController.m */,
-				5004074C1E1240B2008CECBB /* GRStoryPlayerView.h */,
-				5004074D1E1240B2008CECBB /* GRStoryPlayerView.m */,
 				500407531E124A9F008CECBB /* videos.txt */,
 			);
 			path = GRStoriesDetailDemo;
@@ -176,6 +204,43 @@
 				09103888FC2AA884C4E97D2D /* libPods-GRStoriesDetailDemo.a */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		50663B8D1E2482DB0081FF77 /* GRPanableView */ = {
+			isa = PBXGroup;
+			children = (
+				50663B8E1E2482DB0081FF77 /* GRPanableView.h */,
+				50663B8F1E2482DB0081FF77 /* GRPanableView.m */,
+				50663B901E2482DB0081FF77 /* GRPanableView.xib */,
+				50663B911E2482DB0081FF77 /* GRStoryPanableView.h */,
+				50663B921E2482DB0081FF77 /* GRStoryPanableView.m */,
+				50663B931E2482DB0081FF77 /* GRStoryViewCountView.h */,
+				50663B941E2482DB0081FF77 /* GRStoryViewCountView.m */,
+				50663B951E2482DB0081FF77 /* GRStoryViewCountView.xib */,
+			);
+			path = GRPanableView;
+			sourceTree = "<group>";
+		};
+		50663BEE1E24E1450081FF77 /* StoryPlayProcessGroupView */ = {
+			isa = PBXGroup;
+			children = (
+				50663BEF1E24E1450081FF77 /* GRStoryPlayProcessGroupView.h */,
+				50663BF01E24E1450081FF77 /* GRStoryPlayProcessGroupView.m */,
+				50663BF11E24E1450081FF77 /* GRStoryPlayProcessView.h */,
+				50663BF21E24E1450081FF77 /* GRStoryPlayProcessView.m */,
+			);
+			path = StoryPlayProcessGroupView;
+			sourceTree = "<group>";
+		};
+		50663BF81E2508FB0081FF77 /* GRImagePlayerView */ = {
+			isa = PBXGroup;
+			children = (
+				50663BF91E2509050081FF77 /* GRImagePlayerView.h */,
+				50663BFA1E2509050081FF77 /* GRImagePlayerView.m */,
+				50663BFC1E2509330081FF77 /* GRStoryPlayerView.h */,
+				50663BFD1E2509330081FF77 /* GRStoryPlayerView.m */,
+			);
+			path = GRImagePlayerView;
 			sourceTree = "<group>";
 		};
 		50F323351E13AF8B00941C80 /* GRCacheVideoPlayer */ = {
@@ -286,10 +351,12 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				50663B9A1E2482DB0081FF77 /* GRStoryViewCountView.xib in Resources */,
 				5004073C1E1109DE008CECBB /* LaunchScreen.storyboard in Resources */,
 				500407391E1109DE008CECBB /* Assets.xcassets in Resources */,
 				500407541E124A9F008CECBB /* videos.txt in Resources */,
 				500407371E1109DE008CECBB /* Main.storyboard in Resources */,
+				50663B971E2482DB0081FF77 /* GRPanableView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -348,6 +415,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				50663B991E2482DB0081FF77 /* GRStoryViewCountView.m in Sources */,
 				50EA68FA1E1F48060095AEC4 /* GRStoryMediaDownloadManager.m in Sources */,
 				50F3239A1E13CC4E00941C80 /* GRResourceLoader.m in Sources */,
 				5004074B1E110E58008CECBB /* GRMyStoryDetailViewController.m in Sources */,
@@ -355,20 +423,26 @@
 				509756C11E1C9E1B00533B33 /* GRNormalVideoCache.m in Sources */,
 				50F323A21E15FB3C00941C80 /* GRVideoDownloadManager.m in Sources */,
 				50F323781E13C3CB00941C80 /* GRCacheVideoPlayer.m in Sources */,
+				50663B981E2482DB0081FF77 /* GRStoryPanableView.m in Sources */,
 				504E857F1E1F8A12003B1EFF /* GRStoryImageDownloadOpration.m in Sources */,
 				50EA69031E1F79EB0095AEC4 /* GRStoryDownloadVideoTask.m in Sources */,
 				500407451E1109FD008CECBB /* GRCubeViewController.m in Sources */,
-				5004074E1E1240B2008CECBB /* GRStoryPlayerView.m in Sources */,
 				50F3237C1E13C65500941C80 /* NSURL+CacheVideoPlayer.m in Sources */,
+				50663BFB1E2509050081FF77 /* GRImagePlayerView.m in Sources */,
 				500407341E1109DE008CECBB /* ViewController.m in Sources */,
 				509756BE1E1C9B7100533B33 /* GRStoryImageDownload.m in Sources */,
+				50663BF71E24E4850081FF77 /* GRStoryLeftRightTouchView.m in Sources */,
 				50F3239D1E13CDC000941C80 /* GRRequestTask.m in Sources */,
 				50EA69061E1F7BA50095AEC4 /* GRStoryVideoDownloadOpration.m in Sources */,
+				50663B961E2482DB0081FF77 /* GRPanableView.m in Sources */,
 				50F323941E13C92400941C80 /* GRCacheVideoFileUtility.m in Sources */,
+				50663BF31E24E1450081FF77 /* GRStoryPlayProcessGroupView.m in Sources */,
 				500407311E1109DE008CECBB /* AppDelegate.m in Sources */,
 				50EA68FD1E1F6FA90095AEC4 /* GRStoryMediaDownloadOpration.m in Sources */,
 				50F323971E13C96000941C80 /* GRVideoCache.m in Sources */,
+				50663BFE1E2509330081FF77 /* GRStoryPlayerView.m in Sources */,
 				5004072E1E1109DE008CECBB /* main.m in Sources */,
+				50663BF41E24E1450081FF77 /* GRStoryPlayProcessView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

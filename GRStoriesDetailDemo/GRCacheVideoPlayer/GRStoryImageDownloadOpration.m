@@ -95,4 +95,10 @@
     [self didChangeValueForKey:@"isExecuting"];
 }
 
+#pragma mark - override
+
+- (NSURL *)mediaURL {
+    return self.requestURL; 
+} 
+
 @end

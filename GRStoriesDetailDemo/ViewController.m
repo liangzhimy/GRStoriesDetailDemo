@@ -56,6 +56,10 @@
     self.datas = datas;
 }
 
+- (void)__bindWithDatas:(NSArray *)array index:(NSInteger)index {
+    
+} 
+
 - (void)__configViewControllers {
     for (NSInteger i = 0; i < 4; i++) {
         UIStoryboard *mystoryboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
@@ -152,6 +156,7 @@
 
 - (void)cubeViewController:(id)sender willScrollToValidIndex:(NSInteger)index {
     [self __closeSelf];
-} 
+}
+
 
 @end

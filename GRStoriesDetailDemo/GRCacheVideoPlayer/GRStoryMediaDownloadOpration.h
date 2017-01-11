@@ -14,8 +14,8 @@
 @protocol GRStoryMediaDownloadOprationDelegate <NSObject>
 @required
 - (void)storyMediaDownloadOpration:(GRStoryMediaDownloadOpration *)opration didReceiveResponse:(NSURLResponse *)response;
-- (void)storyMediaDownloadOpration:(GRStoryMediaDownloadOpration *)opratio didReceiveData:(NSData *)data;
-- (void)storyMediaDownloadOpration:(GRStoryMediaDownloadOpration *)opratio didCompleteWithError:(NSError *)error;
+- (void)storyMediaDownloadOpration:(GRStoryMediaDownloadOpration *)opration didReceiveData:(NSData *)data;
+- (void)storyMediaDownloadOpration:(GRStoryMediaDownloadOpration *)opration didCompleteWithError:(NSError *)error;
 @end
 
 @interface GRStoryMediaDownloadOpration : NSOperation

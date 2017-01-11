@@ -218,5 +218,12 @@ didCompleteWithError:(NSError *)error {
     [self done];
 }
 
+#pragma mark - override 
+
+- (NSURL *)mediaURL {
+    return self.requestURL; 
+} 
+
+
 
 @end

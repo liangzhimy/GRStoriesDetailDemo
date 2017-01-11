@@ -31,6 +31,7 @@ static const CGFloat __GRDuration    =  0.4f;
     [super viewDidLoad];
     
     UIPanGestureRecognizer *pan = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(__handlePan:)];
+    pan.delegate = self;
     [self.view addGestureRecognizer:pan];
     
     self.facingSide = 0;

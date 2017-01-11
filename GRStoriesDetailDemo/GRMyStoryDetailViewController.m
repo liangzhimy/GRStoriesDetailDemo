@@ -7,19 +7,31 @@
 //
 
 #import "GRMyStoryDetailViewController.h"
+#import <Masonry/Masonry.h>
+
 #import "GRStoryPlayerView.h"
 #import "GRCacheVideoPlayer.h"
+#import "GRStoryPanableView.h"
+#import "GRStoryPlayProcessGroupView.h"
+#import "GRStoryLeftRightTouchView.h"
 
 @implementation GRStory
 
 @end
 
-@interface GRMyStoryDetailViewController ()
+@interface GRMyStoryDetailViewController () <GRCacheVideoPlayerDelegate, GRStoryLeftRightTouchViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UILabel *textLabel;
 @property (strong, nonatomic, readwrite) GRStory *story;
 @property (strong, nonatomic) GRCacheVideoPlayer *playerView;
 @property (weak, nonatomic) IBOutlet UIView *contentView;
+@property (weak, nonatomic) IBOutlet UIView *othersView;
+@property (strong, nonatomic) GRStoryPanableView *storyPanableView;
+
+@property (weak, nonatomic) IBOutlet GRStoryPlayProcessGroupView *headerGroupProcessView;
+@property (weak, nonatomic) IBOutlet GRStoryLeftRightTouchView *leftRightTouchView;
+
+@property (assign, nonatomic) NSInteger currentIndex;
 
 @end
 
@@ -43,7 +55,13 @@
 - (void)__configUI {
     GRCacheVideoPlayer *playerView = [[GRCacheVideoPlayer alloc] initWithFrame:self.view.bounds];
     [self.contentView addSubview:playerView];
-    self.playerView = playerView; 
+    self.playerView = playerView;
+    
+    [self __configPanContainerViewUI];
+    
+    [self.headerGroupProcessView bindDataWithCount:5];
+    
+    self.leftRightTouchView.delegate = self; 
 }
 
 - (void)__loadStory {
@@ -68,7 +86,8 @@
 }
 
 - (void)play {
-    [self.playerView playWithURL:self.story.videoURL]; 
+    [self.playerView playWithURL:self.story.videoURL];
+    self.playerView.delegate = self; 
 }
 
 - (void)stop {
@@ -78,5 +97,40 @@
 - (void)pause {
     [self.playerView pause]; 
 } 
+
+- (void)__configPanContainerViewUI {
+    [self.view layoutIfNeeded];
+    [self.othersView layoutIfNeeded];
+    [self.othersView addSubview:self.storyPanableView];
+    [self.storyPanableView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.edges.equalTo(self.othersView);
+    }];
+} 
+
+- (GRStoryPanableView *)storyPanableView {
+    if (!_storyPanableView) {
+        _storyPanableView = [[GRStoryPanableView alloc] init];
+    }
+    return _storyPanableView;
+}
+
+#pragma mark - GRCacheVideoPlayerDelegate
+- (void)cacheVideoPlayer:(GRCacheVideoPlayer *)player playProcess:(CGFloat)process {
+    [self.headerGroupProcessView setProcess:process index:self.currentIndex];
+}
+
+- (void)cacheVideoPlayer:(GRCacheVideoPlayer *)player playFail:(BOOL)isFail {
+}
+
+#pragma mark - GRStoryLeftRightTouchViewDelegate
+- (void)storyLeftRightTouchView:(GRStoryLeftRightTouchView *)storyLeftRightTouchView touchDirectionType:(GRStoryLeftRightTouchType)touchDirectionType {
+    if (touchDirectionType == GRStoryLeftRightTouchTypeLeft) {
+        self.currentIndex = [self.headerGroupProcessView movePrevious];
+        [self play];
+    } else if (touchDirectionType == GRStoryLeftRightTouchTypeRight) {
+        self.currentIndex = [self.headerGroupProcessView moveNext];
+        [self play];
+    }
+}
 
 @end

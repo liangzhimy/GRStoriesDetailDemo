@@ -168,14 +168,14 @@ static NSString * const __GRPlayerItemKeyPathStatus = @"status";
 }
 
 - (void)__addPlayerObserver {
-    CMTime interval = CMTimeMake(1, 1);
+    CMTime interval = CMTimeMake(1, 10);
     [self.playerObservers addObject:self.player];
     @weakify(self);
     self.timeObserver = [self.player addPeriodicTimeObserverForInterval:interval queue:dispatch_get_main_queue() usingBlock:^(CMTime time) {
         @strongify(self);
         NSTimeInterval durationTime = CMTimeGetSeconds(self.playerItem.duration);
         NSTimeInterval currentTime = CMTimeGetSeconds(self.playerItem.currentTime);
-        CGFloat process = durationTime / currentTime;
+        CGFloat process = currentTime / durationTime;
         if (self.delegate && [self.delegate respondsToSelector:@selector(cacheVideoPlayer:playProcess:)]) {
             [self.delegate cacheVideoPlayer:self playProcess:process];
         } 

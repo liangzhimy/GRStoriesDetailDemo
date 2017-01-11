@@ -27,7 +27,7 @@
 
 @end
 
-@interface GRCubeViewController : UIViewController
+@interface GRCubeViewController : UIViewController <UIGestureRecognizerDelegate>
 @property (weak, nonatomic) id<GRCubeViewControllerDelegate> delegate; 
 
 - (void)addCubeSideForChildController:(UIViewController *)controller;

@@ -3,4 +3,5 @@
 
 target 'GRStoriesDetailDemo' do
 	pod 'SDWebImage'
+	pod 'Masonry', '~> 1.0.2'
 end

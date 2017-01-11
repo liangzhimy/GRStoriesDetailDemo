@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11542" systemVersion="15G1004" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11524"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="GRStoryViewCountView">
+            <rect key="frame" x="0.0" y="0.0" width="100" height="26"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view alpha="0.20000000000000001" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="isa-CK-bql" userLabel="bgView">
+                    <rect key="frame" x="0.0" y="0.0" width="100" height="26"/>
+                    <color key="backgroundColor" cocoaTouchSystemColor="darkTextColor"/>
+                </view>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RTj-XH-EG9">
+                    <rect key="frame" x="47" y="5" width="8" height="17"/>
+                    <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
+                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="watch" translatesAutoresizingMaskIntoConstraints="NO" id="3SF-HN-Al0">
+                    <rect key="frame" x="13" y="7" width="15" height="12"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="12" id="P3A-eC-jIp"/>
+                        <constraint firstAttribute="width" constant="15" id="XEj-hw-lJ8"/>
+                    </constraints>
+                </imageView>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Path 3" translatesAutoresizingMaskIntoConstraints="NO" id="u6v-d7-iq9">
+                    <rect key="frame" x="74" y="11" width="14" height="6"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="6" id="09B-qg-yjh"/>
+                        <constraint firstAttribute="width" constant="14" id="zSV-T1-iWr"/>
+                    </constraints>
+                </imageView>
+            </subviews>
+            <constraints>
+                <constraint firstAttribute="bottom" secondItem="isa-CK-bql" secondAttribute="bottom" id="RXe-Yx-oJl"/>
+                <constraint firstItem="3SF-HN-Al0" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="VC1-gJ-9SK"/>
+                <constraint firstItem="isa-CK-bql" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="VTm-Lf-xbW"/>
+                <constraint firstItem="isa-CK-bql" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="WWS-VL-9ga"/>
+                <constraint firstItem="RTj-XH-EG9" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="ZbH-mm-VJa"/>
+                <constraint firstAttribute="trailing" secondItem="isa-CK-bql" secondAttribute="trailing" id="bxV-x8-ID2"/>
+                <constraint firstItem="u6v-d7-iq9" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="hvQ-is-aUw"/>
+                <constraint firstItem="RTj-XH-EG9" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="kU8-eO-HkZ"/>
+                <constraint firstAttribute="trailing" secondItem="u6v-d7-iq9" secondAttribute="trailing" constant="12" id="kxT-9v-cdq"/>
+                <constraint firstItem="3SF-HN-Al0" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="13" id="wpI-Hn-3lI"/>
+            </constraints>
+            <nil key="simulatedStatusBarMetrics"/>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <connections>
+                <outlet property="arrowImageView" destination="u6v-d7-iq9" id="cgD-Cm-jNV"/>
+                <outlet property="backgroundView" destination="isa-CK-bql" id="Osa-sq-eEY"/>
+                <outlet property="countLabel" destination="RTj-XH-EG9" id="JxJ-dR-HsY"/>
+            </connections>
+        </view>
+    </objects>
+    <resources>
+        <image name="Path 3" width="16" height="8"/>
+        <image name="watch" width="15" height="12"/>
+    </resources>
+</document>
